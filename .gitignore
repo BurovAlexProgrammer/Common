@@ -61,9 +61,6 @@ sysinfo.txt
 *.unitypackage
 *.app
 
-.idea/.idea.Common/.idea/workspace.xml
-/.idea/
-
 # Crashlytics generated file
 crashlytics-build.properties
 
@@ -74,3 +71,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+.idea
+.idea/.idea.Common/.idea/projectSettingsUpdater.xml
+.idea/.idea.Common/.idea/workspace.xml
