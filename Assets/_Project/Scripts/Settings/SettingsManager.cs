@@ -9,5 +9,10 @@ namespace _Project.Scripts.Settings
         [SerializeField] private SettingsGroup<VideoSettings> _videoSettings; 
         
         public SettingsGroup<VideoSettings> Video => _videoSettings;
+
+        public void SaveSettings()
+        {
+
+        }
     }
 }
