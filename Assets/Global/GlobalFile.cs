@@ -36,7 +36,44 @@ namespace Global.File
             }
             catch (SerializationException e)
             {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+
+            return result;
+        }
+        
+        public static void SaveFile2(this Object data, string path)
+        {
+            if (System.IO.File.Exists(path) == false)
+            {
+                System.IO.File.Create(path);
+            } 
+            
+            using StreamWriter writer = new StreamWriter(path);
+            try
+            {
+                var json = JsonUtility.ToJson(data);
+                writer.Write(json);
+            }
+            catch (SerializationException e)
+            {
                 Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                throw;
+            }
+        }
+
+        public static T LoadFile2<T>(string path) where T : new()
+        {
+            T result = new T();
+            try
+            {
+                var json = System.IO.File.ReadAllText(path);
+                result = JsonUtility.FromJson<T>(json);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
                 throw;
             }
 

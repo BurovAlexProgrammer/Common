@@ -15,15 +15,27 @@ namespace _Project.Scripts
 
         private void Awake()
         {
+            Init();
+        }
+
+        private void Init()
+        {
             if (Instance == null)
             {
                 Instance = this;
                 DontDestroyOnLoad(this);
+                _settingsManager.Init();
             }
             else
             {
                 throw new Exception();
             }
+        }
+
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void OnScriptsReloaded()
+        {
+            //TODO find DoNotDestroyed App
         }
     }
 }

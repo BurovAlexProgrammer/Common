@@ -3,9 +3,9 @@ using UnityEngine;
 namespace _Project.Scripts.Settings
 {
     [CreateAssetMenu(menuName = "Custom/Settings/Video")]
-    public class VideoSettings: Settings
+    public class VideoSettings: SettingsSO
     {
-        [SerializeField] private bool _good;
-        public bool Good => _good;
+        public bool Good;
+        public int number;
     }
 }

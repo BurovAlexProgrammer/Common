@@ -7,6 +7,17 @@ namespace Global
 {
     public static class Extension
     {
+        public static void CopyDataTo(this Object source, Object target) 
+        {
+            var sourceTypeInfo = source.GetType().GetTypeInfo();
+            var sourceFields = sourceTypeInfo.DeclaredFields;
+
+            foreach (var field in sourceFields)
+            {
+                field.SetValue(target, field.GetValue(source));
+            }
+        }
+        
         public static T ConvertTo<T>(this Object source) where T : new()
         {
             var result = new T();
@@ -20,6 +31,20 @@ namespace Global
             {
                 if (resultFields.Contains(field))
                     field.SetValue(result, field.GetValue(source));
+            }
+
+            return result;
+        }
+        
+        public static T CopyAsNewInstance<T>(this Object source) where T : new()
+        {
+            var result = new T();
+            var sourceTypeInfo = source.GetType().GetTypeInfo();
+            var sourceFields = sourceTypeInfo.DeclaredFields;
+
+            foreach (var field in sourceFields)
+            {
+                field.SetValue(result, field.GetValue(source));
             }
 
             return result;
