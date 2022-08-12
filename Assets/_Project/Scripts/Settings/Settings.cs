@@ -3,12 +3,8 @@ using UnityEngine;
 
 namespace _Project.Scripts.Settings
 {
-    public abstract class SettingsSOBase : ScriptableObject
+    public abstract class SettingsSO : ScriptableObject
     {
         public string Description;
-    }
-    
-    public class SettingsSO : SettingsSOBase
-    {
     }
 }

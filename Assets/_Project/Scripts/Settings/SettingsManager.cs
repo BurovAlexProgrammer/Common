@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using AudioSettings = _Project.Scripts.Settings._Project.Scripts.Settings.AudioSettings;
 
 namespace _Project.Scripts.Settings
 {
@@ -8,44 +9,54 @@ namespace _Project.Scripts.Settings
     public class SettingsManager
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
+        [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
 
-        private List<SettingGroup> settingsList;
-        private Dictionary<Type, SettingGroup> _settingDictionary;
+        private List<SettingGroup> _settingList;
 
         public void Init()
         {
-            _settingDictionary = new Dictionary<Type, SettingGroup>
+            //TODO don't forget to add all above SettingsGroups to list 
+            _settingList = new List<SettingGroup>
             {
-                { _videoSettings.SettingsType, _videoSettings} //TODO optimize
-            };
-            
-            settingsList = new List<SettingGroup>
-            {
-                _videoSettings
+                _audioSettings, _videoSettings
             };
 
-            foreach (var settingGroup in settingsList)
+            foreach (var settingGroup in _settingList)
             {
-                var t = settingGroup.GetType();
+                settingGroup.Init();
             }
-
-            LoadOrDefaultSetting();
-            
         }
 
-        public void Add()
+        public void Load()
         {
-            _videoSettings.Current.number++;
+            foreach (var settingGroup in _settingList)
+            {
+                settingGroup.Load();
+            }
         }
 
-        private void LoadOrDefaultSetting()
+        public void Save()
         {
+            foreach (var settingGroup in _settingList)
+            {
+                settingGroup.Save();
+            }
         }
-
 
         public void Cancel()
         {
-            
+            foreach (var settingGroup in _settingList)
+            {
+                settingGroup.Cancel();
+            }
+        }
+
+        public void Restore()
+        {
+            foreach (var settingGroup in _settingList)
+            {
+                settingGroup.Restore();
+            }
         }
     }
 }
