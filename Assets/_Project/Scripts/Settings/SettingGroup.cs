@@ -18,13 +18,11 @@ namespace _Project.Scripts.Settings
     [Serializable]
     public class SettingGroup<T> : SettingGroup where T : SettingsSO
     {
-        public T Default => _default;
-        public T Saved => _saved;
-        public Type SettingsType => typeof(T);
-
         [SerializeField] private T _default;
         [SerializeField] private T _saved;
         [SerializeField] private T _current;
+        
+        public T CurrentSettings => _current;
 
         public void Init()
         {
