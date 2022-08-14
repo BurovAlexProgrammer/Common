@@ -8,4 +8,9 @@ namespace _Project.Scripts.Settings
         public bool Good;
         public int number;
     }
+
+    public static class VideoSettingsAttributes
+    {
+        
+    }
 }
