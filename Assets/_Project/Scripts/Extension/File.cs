@@ -5,9 +5,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Object = System.Object;
 
-namespace Global.File
+namespace _Project.Scripts.Extension
 {
-    public static class GlobalFile
+    public static partial class Extension
     {
         public static void SaveFile(this Object data, string path)
         {

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using AudioSettings = _Project.Scripts.Settings._Project.Scripts.Settings.AudioSettings;
+
 
 namespace _Project.Scripts.Settings
 {
-    [Serializable]
-    public class SettingsManager
+    public class SettingsService : MonoBehaviour
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;

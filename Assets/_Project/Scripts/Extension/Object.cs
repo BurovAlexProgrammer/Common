@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Global
+namespace _Project.Scripts.Extension
 {
-    public static class Extension
+    public static partial class Extension
     {
         public static void CopyDataFrom(this Object target, Object source)
         {

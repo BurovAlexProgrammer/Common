@@ -1,13 +1,40 @@
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.Settings;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Main.Installers
 {
     public class BootstrapInstaller : MonoInstaller
     {
-        public SceneLoaderService _sceneLoaderServicePrefab;
+        [SerializeField] private SceneLoaderService _sceneLoaderServicePrefab;
+        [SerializeField] private ScreenService _screenServicePrefab;
+        [SerializeField] private SettingsService _settingsServicePrefab;
 
         public override void InstallBindings()
+        {
+            InstallSceneLoaderService();
+            InstallScreenService();
+            InstallSettingService();
+        }
+
+        private void InstallSettingService()
+        {
+            Container
+                .Bind<SettingsService>()
+                .FromComponentInNewPrefab(_settingsServicePrefab)
+                .AsSingle();
+        }
+
+        private void InstallScreenService()
+        {
+            Container
+                .Bind<ScreenService>()
+                .FromComponentInNewPrefab(_screenServicePrefab)
+                .AsSingle();
+        }
+
+        private void InstallSceneLoaderService()
         {
             Container
                 .Bind<SceneLoaderService>()

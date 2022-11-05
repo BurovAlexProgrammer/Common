@@ -2,9 +2,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Settings
 {
-    namespace _Project.Scripts.Settings
-    {
-        [CreateAssetMenu(menuName = "Custom/Settings/Audio")]
+    [CreateAssetMenu(menuName = "Custom/Settings/Audio")]
         public class AudioSettings : SettingsSO
         {
             public bool SoundEnabled;
@@ -18,5 +16,4 @@ namespace _Project.Scripts.Settings
             public static float VolumeMin = 0f;
             public static float VolumeMax = 20f;
         }
-    }
 }

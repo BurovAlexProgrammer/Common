@@ -76,3 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneLoaderServicePrefab: {fileID: -8511064090409798261, guid: 6f9576a56baeddd498533409e6c544ce,
     type: 3}
+  _screenServicePrefab: {fileID: 144474506516546969, guid: c3217b61733167c499178907a758f927,
+    type: 3}
+  _settingsServicePrefab: {fileID: 9141169312345495193, guid: 4056d19f95fa68b468c574a10f7f0969,
+    type: 3}

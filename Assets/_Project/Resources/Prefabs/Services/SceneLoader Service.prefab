@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 4685460435684130557}
   - component: {fileID: -8511064090409798261}
   m_Layer: 0
-  m_Name: SceneLoaderService
+  m_Name: SceneLoader Service
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300981f1109a4f55adfb2e13babefdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuScene: {fileID: 102900000, guid: b04edce31713c7e489cbb1b4315f2c0a, type: 3}
+  MainMenuScene: {fileID: 0}
   _canvasGroup: {fileID: 6620991206102551696}
   _fadeCurve:
     serializedVersion: 2

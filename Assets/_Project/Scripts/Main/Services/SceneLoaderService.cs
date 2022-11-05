@@ -1,14 +1,13 @@
-using _Project.Scripts.Global;
+using _Project.Scripts.Extension;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Services
 {
     public class SceneLoaderService: MonoBehaviour
     {
-        public SceneAsset MainMenuScene;
+        [SerializeField] public ScenePicker MainMenuScene;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private AnimationCurve _fadeCurve;
 
@@ -21,13 +20,13 @@ namespace _Project.Scripts.Main.Services
         }
 
         //TODO to async unitask 
-        public void LoadScene(SceneAsset sceneAsset)
+        public void LoadScene(string scenePath)
         {
             DOTween.Sequence()
                 .AppendCallback(() =>
                 {
                     HideScene();
-                    PrepareScene(sceneAsset);
+                    PrepareScene(scenePath);
                 })
                 .AppendInterval(_fadeCurve.GetDuration())
                 .AppendCallback(() =>
@@ -49,11 +48,11 @@ namespace _Project.Scripts.Main.Services
                 .DOFade(1f, 0.3f).SetEase(_fadeCurve);
         }
         
-        private void PrepareScene(SceneAsset sceneAsset)
+        private void PrepareScene(string scenePath)
         {
             _currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(sceneAsset.name, LoadSceneMode.Additive);
-            _preparedScene = SceneManager.GetSceneByName(sceneAsset.name);
+            SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
+            _preparedScene = SceneManager.GetSceneByName(scenePath);
         }
 
         private void ActivatePreparedScene()

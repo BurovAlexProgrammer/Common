@@ -1,8 +1,6 @@
 using System;
-using System.ComponentModel.Design.Serialization;
-using Global;
+using _Project.Scripts.Extension;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace _Project.Scripts.Settings
 {

@@ -1,9 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.Scripts.Global
+namespace _Project.Scripts.Extension
 {
-    public static class GlobalAnimation
+    public static partial class Extension
     {
         public static float GetDuration(this AnimationCurve curve)
         {

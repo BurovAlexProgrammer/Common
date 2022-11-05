@@ -1,10 +1,14 @@
 using _Project.Scripts.Main;
+using _Project.Scripts.Main.Services;
 using UnityEngine;
+using Zenject;
 
 public class MainCameraToCanvasOnAwake : MonoBehaviour
 {
-    private void Awake()
+    [Inject]
+    public void Construct(ScreenService screenService)
     {
-        GetComponent<Canvas>().worldCamera = Game.MainCamera;
+        GetComponent<Canvas>().worldCamera = screenService.MainCamera;
+        gameObject.SetActive(false);
     }
 }

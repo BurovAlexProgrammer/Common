@@ -1,0 +1,41 @@
+using System;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace _Project.Scripts.Main
+{
+    [Serializable]
+    public class ScenePicker : MonoBehaviour
+    {
+        [SerializeField]
+        public string scenePath;
+    }
+    
+    #if UNITY_EDITOR
+    [CustomEditor(typeof(ScenePicker), true)]
+    public class ScenePickerEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            var picker = target as ScenePicker;
+            var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(picker.scenePath);
+
+            serializedObject.Update();
+
+            EditorGUI.BeginChangeCheck();
+            var newScene = EditorGUILayout.ObjectField("scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                var newPath = AssetDatabase.GetAssetPath(newScene);
+                var scenePathProperty = serializedObject.FindProperty("scenePath");
+                scenePathProperty.stringValue = newPath;
+            }
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+    #endif
+}
