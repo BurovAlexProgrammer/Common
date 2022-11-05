@@ -1,8 +1,7 @@
-using _Project.Scripts.Main;
-using UnityEngine;
+using _Project.Scripts.Main.Services;
 using Zenject;
 
-namespace _Project.Scripts.Common.Installers
+namespace _Project.Scripts.Main.Installers
 {
     public class BootstrapInstaller : MonoInstaller
     {
