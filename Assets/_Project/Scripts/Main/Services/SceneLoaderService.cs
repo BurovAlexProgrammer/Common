@@ -6,9 +6,9 @@ using UnityEngine;
 namespace _Project.Scripts.Main.Services
 {
     public class SceneLoaderService: MonoBehaviour
-    {
-        [SerializeField] public ScenePicker MainMenuScene;
-        [SerializeField] private CanvasGroup _canvasGroup;
+    { 
+        public ScenePicker MainMenuScene;
+        [SerializeField] private CanvasGroup _blackFrame;
         [SerializeField] private AnimationCurve _fadeCurve;
 
         private Scene _currentScene;
@@ -16,7 +16,7 @@ namespace _Project.Scripts.Main.Services
         
         public void Init()
         {
-            _canvasGroup.alpha = 1f;
+            _blackFrame.alpha = 1f;
         }
 
         //TODO to async unitask 
@@ -38,14 +38,22 @@ namespace _Project.Scripts.Main.Services
 
         private void ShowScene()
         {
-            _canvasGroup
-                .DOFade(0f, 0.5f).SetEase(_fadeCurve);
+            _blackFrame.gameObject.SetActive(true);
+            _blackFrame
+                .DOFade(0f, 0.5f)
+                .From(1f)
+                .SetEase(_fadeCurve)
+                .OnComplete(() => _blackFrame.gameObject.SetActive(false));
         }
 
         private void HideScene()
         {
-            _canvasGroup
-                .DOFade(1f, 0.3f).SetEase(_fadeCurve);
+            _blackFrame.gameObject.SetActive(true);
+            _blackFrame
+                .DOFade(1f, 0.3f)
+                .From(0f)
+                .SetEase(_fadeCurve)
+                .OnComplete(() => _blackFrame.gameObject.SetActive(false));
         }
         
         private void PrepareScene(string scenePath)
