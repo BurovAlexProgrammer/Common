@@ -22,6 +22,7 @@ namespace _Project.Scripts.Main.Services
         //TODO to async unitask 
         public void LoadScene(string scenePath)
         {
+            Debug.Log(_fadeCurve.GetDuration());
             DOTween.Sequence()
                 .AppendCallback(() =>
                 {
@@ -61,10 +62,12 @@ namespace _Project.Scripts.Main.Services
             _currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
             _preparedScene = SceneManager.GetSceneByName(scenePath);
+            _preparedScene.SetActive(false);
         }
 
         private void ActivatePreparedScene()
         {
+            _preparedScene.SetActive(true);
             SceneManager.SetActiveScene(_preparedScene);
             SceneManager.UnloadSceneAsync(_currentScene);
         }
