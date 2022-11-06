@@ -1,4 +1,6 @@
 using _Project.Scripts.Main.Services;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -17,7 +19,9 @@ namespace _Project.Scripts.Main.SceneScripts
         private void Start()
         {
             _sceneLoader.Init();
-            _sceneLoader.LoadScene(_sceneLoader.MainMenuScene.scenePath);
+            DOTween.Sequence()
+                .AppendInterval(1)
+                .AppendCallback(() => _sceneLoader.LoadScene(_sceneLoader.MainMenuScene));
         }
     }
 }

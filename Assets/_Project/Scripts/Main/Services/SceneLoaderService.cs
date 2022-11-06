@@ -1,4 +1,5 @@
 using _Project.Scripts.Extension;
+using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine;
@@ -7,34 +8,30 @@ namespace _Project.Scripts.Main.Services
 {
     public class SceneLoaderService: MonoBehaviour
     { 
-        public ScenePicker MainMenuScene;
+        [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;
         [SerializeField] private AnimationCurve _fadeCurve;
-
+        
+        public string MainMenuScene => _mainMenuScene.scenePath;
         private Scene _currentScene;
         private Scene _preparedScene;
         
         public void Init()
         {
             _blackFrame.alpha = 1f;
+            ShowScene();
         }
-
-        //TODO to async unitask 
+        
         public void LoadScene(string scenePath)
         {
-            Debug.Log(_fadeCurve.GetDuration());
-            DOTween.Sequence()
-                .AppendCallback(() =>
-                {
-                    HideScene();
-                    PrepareScene(scenePath);
-                })
-                .AppendInterval(_fadeCurve.GetDuration())
-                .AppendCallback(() =>
-                {
-                    ActivatePreparedScene();
-                    ShowScene();
-                });
+            LoadSceneAsync(scenePath).Forget();
+        }
+
+        private async UniTask LoadSceneAsync(string scenePath)
+        {
+            await UniTask.WhenAll(HideScene(), PrepareScene(scenePath));
+            ActivatePreparedScene();
+            ShowScene();
         }
 
         private void ShowScene()
@@ -47,20 +44,19 @@ namespace _Project.Scripts.Main.Services
                 .OnComplete(() => _blackFrame.gameObject.SetActive(false));
         }
 
-        private void HideScene()
+        private async UniTask HideScene()
         {
             _blackFrame.gameObject.SetActive(true);
-            _blackFrame
+            await _blackFrame
                 .DOFade(1f, 0.3f)
                 .From(0f)
-                .SetEase(_fadeCurve)
-                .OnComplete(() => _blackFrame.gameObject.SetActive(false));
+                .AsyncWaitForCompletion();
         }
         
-        private void PrepareScene(string scenePath)
+        private async UniTask PrepareScene(string scenePath)
         {
             _currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scenePath, LoadSceneMode.Additive);
+            await SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
             _preparedScene = SceneManager.GetSceneByName(scenePath);
             _preparedScene.SetActive(false);
         }

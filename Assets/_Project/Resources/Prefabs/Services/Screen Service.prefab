@@ -56,7 +56,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100
+  far clip plane: 101
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 495404748086225088}
+  _uiCamera: {fileID: 6470910582907054790}
   _postProcessVolume: {fileID: 8396161662829177034}
   _postProcessLayer: {fileID: 3028556645855779601}
 --- !u!1 &6513998364825044350

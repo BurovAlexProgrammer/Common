@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063c887fd444a5342bd0df4c0e34be7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: 1
 --- !u!1 &4685460435684130547
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685460435684130557}
   - component: {fileID: -8511064090409798261}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SceneLoader Service
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300981f1109a4f55adfb2e13babefdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuScene:
+  _mainMenuScene:
     scenePath: MainMenu
   _blackFrame: {fileID: 5875507509720726747}
   _fadeCurve:
