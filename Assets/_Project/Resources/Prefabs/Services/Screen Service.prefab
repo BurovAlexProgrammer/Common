@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4614222423519378800}
   - component: {fileID: 6470910582907054790}
   m_Layer: 5
-  m_Name: UICamera
-  m_TagString: Untagged
+  m_Name: UI Camera
+  m_TagString: UICamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 5240756993800549402}
   - component: {fileID: 8166985941644392848}
   m_Layer: 7
-  m_Name: NoPPCamera
+  m_Name: NoPP Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
