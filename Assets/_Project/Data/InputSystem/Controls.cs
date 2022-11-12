@@ -24,7 +24,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Main"",
+            ""name"": ""Player"",
             ""id"": ""d5bf7b87-1850-4eee-88a5-8ee68aa18329"",
             ""actions"": [
                 {
@@ -231,9 +231,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Main
-        m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
-        m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -290,29 +290,29 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Main
-    private readonly InputActionMap m_Main;
-    private IMainActions m_MainActionsCallbackInterface;
-    private readonly InputAction m_Main_Move;
-    public struct MainActions
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_Move;
+    public struct PlayerActions
     {
         private @Controls m_Wrapper;
-        public MainActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Main_Move;
-        public InputActionMap Get() { return m_Wrapper.m_Main; }
+        public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MainActions set) { return set.Get(); }
-        public void SetCallbacks(IMainActions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_MainActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_MainActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnMove;
+                @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
             }
-            m_Wrapper.m_MainActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Move.started += instance.OnMove;
@@ -321,7 +321,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
             }
         }
     }
-    public MainActions @Main => new MainActions(this);
+    public PlayerActions @Player => new PlayerActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -340,7 +340,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
-    public interface IMainActions
+    public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
     }
