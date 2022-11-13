@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
@@ -7,7 +9,7 @@ using UnityEngine;
 namespace _Project.Scripts.Main.Services
 {
     public class SceneLoaderService: MonoBehaviour
-    { 
+    {
         [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;
         [SerializeField] private AnimationCurve _fadeCurve;
@@ -22,9 +24,10 @@ namespace _Project.Scripts.Main.Services
             ShowScene();
         }
         
-        public void LoadScene(string scenePath)
+        public void LoadScene(Scenes scene)
         {
-            LoadSceneAsync(scenePath).Forget();
+            var sceneName = GetScene(scene);
+            LoadSceneAsync(sceneName).Forget();
         }
 
         private async UniTask LoadSceneAsync(string scenePath)
@@ -66,6 +69,26 @@ namespace _Project.Scripts.Main.Services
             _preparedScene.SetActive(true);
             SceneManager.SetActiveScene(_preparedScene);
             SceneManager.UnloadSceneAsync(_currentScene);
+        }
+        
+        public enum Scenes
+        {
+            Boot,
+            MainMenu,
+            IntroLevel,
+        }
+
+        private Dictionary<Scenes, string> ScenesNames = new Dictionary<Scenes, string>()
+        {
+            {Scenes.Boot, "Boot"},
+            { Scenes.MainMenu, "MainMenu"},
+        };
+
+        private string GetScene(Scenes scene)
+        {
+            if (ScenesNames.ContainsKey(scene)) return ScenesNames[scene];
+
+            throw new Exception("Scene Key not found!");
         }
     }
 }

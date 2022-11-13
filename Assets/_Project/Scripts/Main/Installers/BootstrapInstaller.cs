@@ -10,12 +10,14 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private SceneLoaderService _sceneLoaderServicePrefab;
         [SerializeField] private ScreenService _screenServicePrefab;
         [SerializeField] private SettingsService _settingsServicePrefab;
+        [SerializeField] private GameManagerService _gameManagerServicePrefab;
 
         public override void InstallBindings()
         {
             InstallSceneLoaderService();
             InstallScreenService();
             InstallSettingService();
+            InstallGameManagerService();
         }
 
         private void InstallSettingService()
@@ -40,6 +42,15 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<SceneLoaderService>()
                 .FromComponentInNewPrefab(_sceneLoaderServicePrefab)
                 .AsSingle();
+        }
+
+        private void InstallGameManagerService()
+        {
+            Container
+                .Bind<GameManagerService>()
+                .FromComponentInNewPrefab(_gameManagerServicePrefab)
+                .AsSingle()
+                .NonLazy();
         }
     }
 }
