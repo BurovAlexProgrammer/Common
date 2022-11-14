@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace _Project.Scripts.Extension
 {
-    public static partial class Extension
+    public static partial class Common
     {
         public static void CopyDataFrom(this Object target, Object source)
         {

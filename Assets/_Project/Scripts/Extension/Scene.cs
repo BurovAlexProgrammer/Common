@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.Extension
 {
-    public static partial class Extension
+    public static partial class Common
     {
         public static void SetActive(this Scene scene, bool state)
         {

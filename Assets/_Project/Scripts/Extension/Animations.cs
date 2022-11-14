@@ -1,9 +1,11 @@
+using System;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
 namespace _Project.Scripts.Extension
 {
-    public static partial class Extension
+    public static partial class Common
     {
         public static float GetDuration(this AnimationCurve curve)
         {
@@ -14,6 +16,11 @@ namespace _Project.Scripts.Extension
         {
             sequence?.Kill(complete);
             return DOTween.Sequence();
+        }
+
+        public static async UniTask Wait(float seconds)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(seconds));
         }
     }
 }

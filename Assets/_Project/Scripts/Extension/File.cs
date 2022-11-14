@@ -7,7 +7,7 @@ using Object = System.Object;
 
 namespace _Project.Scripts.Extension
 {
-    public static partial class Extension
+    public static partial class Common
     {
         public static void SaveFile(this Object data, string path)
         {

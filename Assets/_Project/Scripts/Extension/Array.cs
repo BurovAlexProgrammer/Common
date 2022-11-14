@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Global.Array
+namespace _Project.Scripts.Extension
 {
-    public static class Array
+    public static partial class Common 
     {
-        
-        public static T[] Shuffle<T>(this T[] values) where T: struct
+        public static T[] Shuffle<T>(this T[] values) where T : struct
         {
             var indexes = new List<int>(values.Length);
             var result = new T[values.Length];
@@ -15,7 +14,7 @@ namespace Global.Array
             {
                 indexes.Add(i);
             }
-        
+
             for (var i = 0; i < values.Length; i++)
             {
                 var randomIndex = Random.Range(0, indexes.Count);
@@ -24,9 +23,9 @@ namespace Global.Array
             }
 
             return result;
-        }     
-        
-        public static T[] ShuffleItems<T>(this T[] values) where T: class
+        }
+
+        public static T[] ShuffleItems<T>(this T[] values) where T : class
         {
             var indexes = new List<int>(values.Length);
             var result = new T[values.Length];
@@ -35,7 +34,7 @@ namespace Global.Array
             {
                 indexes.Add(i);
             }
-        
+
             for (var i = 0; i < values.Length; i++)
             {
                 var randomIndex = Random.Range(0, indexes.Count);
@@ -44,6 +43,6 @@ namespace Global.Array
             }
 
             return result;
-        }      
+        }
     }
 }

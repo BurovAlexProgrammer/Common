@@ -10,8 +10,8 @@ namespace _Project.Scripts.Extension
         Performed,
         Canceled
     }
-    
-    public static partial class Extension 
+
+    public static partial class Common
     {
         public static void BindAction(this InputAction inputAction, BindActions bindAction,
             Action<InputAction.CallbackContext> action)
@@ -32,8 +32,9 @@ namespace _Project.Scripts.Extension
                     throw new Exception("Error while BindAction for InputSystem.");
             }
         }
-        
-        private static async UniTask BindPerformed(InputAction.CallbackContext ctx, Action<InputAction.CallbackContext> action)
+
+        private static async UniTask BindPerformed(InputAction.CallbackContext ctx,
+            Action<InputAction.CallbackContext> action)
         {
             while (ctx.action.inProgress)
             {
