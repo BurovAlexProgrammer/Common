@@ -1,8 +1,10 @@
 using System;
-using _Project.Scripts.Main.Services;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
+using _Project.Scripts.Main.Services;
+using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main
 {
@@ -11,31 +13,49 @@ namespace _Project.Scripts.Main
         private GameStates _activeState;
         private SceneLoaderService _sceneLoader;
 
+        public Action StateChanged;
+
         public GameStates ActiveState => _activeState;
 
         [Inject]
         public void Construct(SceneLoaderService sceneLoaderService)
         {
             _sceneLoader = sceneLoaderService;
-            EnterState(GameStates.Boot);
+            _ = EnterState(GameStates.Boot);
         }
 
-        //TODO to Unitask
-        public void SetState(GameStates newState)
+        public async void SetState(GameStates newState)
         {
-            //TODO DOTween.Sequence().AppendCallback()
-            
-            ExitState(_activeState);
-            EnterState(newState);
+            await ExitState(_activeState);
+            await EnterState(newState);
+            StateChanged?.Invoke();
         }
 
-        private void ExitState(GameStates oldState)
+        private async UniTask EnterState(GameStates newState)
+        {
+            Debug.Log("GameState Enter: " + newState, this);
+            switch (newState)
+            {
+                case GameStates.Boot:
+                    await EnterStateBoot();
+                    break;
+                case GameStates.MainMenu:
+                    EnterStateMainMenu();
+                    break;
+                case GameStates.PlayGame:
+                    break;
+                case GameStates.GamePause:
+                    break;
+            }
+        }
+        
+        private async UniTask ExitState(GameStates oldState)
         {
             Debug.Log("GameState ExitState: " + oldState, this);
             switch (oldState)
             {
                 case GameStates.Boot:
-                    ExitStateBoot();
+                    await ExitStateBoot();
                     break;
                 case GameStates.MainMenu:
                     
@@ -47,34 +67,15 @@ namespace _Project.Scripts.Main
             }
         }
 
-        private void EnterState(GameStates newState)
-        {
-            Debug.Log("GameState Enter: " + newState, this);
-            switch (newState)
-            {
-                case GameStates.Boot:
-                    EnterStateBoot();
-                    break;
-                case GameStates.MainMenu:
-                    EnterStateMainMenu();
-                    break;
-                case GameStates.PlayGame:
-                    break;
-                case GameStates.GamePause:
-                    break;
-            }
-        }
-
-        private void EnterStateBoot()
+        private async UniTask EnterStateBoot()
         {
             _sceneLoader.Init();
-            DOTween.Sequence()
-                .AppendInterval(1f) //TODO Show Intro
-                .AppendCallback(() => SetState(GameStates.MainMenu));
+            await Wait(1f);
+            SetState(GameStates.MainMenu);
         }
             
             
-        private void ExitStateBoot()
+        private async UniTask ExitStateBoot()
         {
             
         }

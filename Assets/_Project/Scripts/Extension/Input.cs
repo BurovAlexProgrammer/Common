@@ -19,8 +19,7 @@ namespace _Project.Scripts.Extension
             switch (bindAction)
             {
                 case BindActions.Performed:
-                    inputAction.started += (ctx) => BindPerformed(ctx, action);
-
+                    inputAction.started += (ctx) => _ = BindPerformed(ctx, action);
                     break;
                 case BindActions.Started:
                     inputAction.started += action;
