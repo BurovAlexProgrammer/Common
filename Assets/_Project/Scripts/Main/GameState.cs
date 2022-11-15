@@ -77,7 +77,7 @@ namespace _Project.Scripts.Main
             
         private async UniTask ExitStateBoot()
         {
-            
+            await UniTask.Delay(1);
         }
 
         private void EnterStateMainMenu()

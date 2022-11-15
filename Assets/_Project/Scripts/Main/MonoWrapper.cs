@@ -7,8 +7,8 @@ namespace _Project.Scripts.Main
     {
         private new GameObject gameObject;
         private new Transform transform;
-        public Transform _transform;
-        public GameObject _gameObject;
+        [HideInInspector] public Transform _transform;
+        [HideInInspector] public GameObject _gameObject;
 
         public virtual void Awake()
         {

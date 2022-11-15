@@ -26,6 +26,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<SettingsService>()
                 .FromComponentInNewPrefab(_settingsServicePrefab)
                 .AsSingle();
+            _settingsServicePrefab.Init();
         }
 
         private void InstallScreenService()
