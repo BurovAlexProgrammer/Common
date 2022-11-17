@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
+using _Project.Scripts.Settings;
 using UnityEngine;
+using AudioSettings = _Project.Scripts.Settings.AudioSettings;
 
-
-namespace _Project.Scripts.Settings
+namespace _Project.Scripts.Main.Services
 {
     public class SettingsService : MonoBehaviour
     {
@@ -13,12 +13,11 @@ namespace _Project.Scripts.Settings
         public VideoSettings Video => _videoSettings.CurrentSettings;
         public AudioSettings Audio => _audioSettings.CurrentSettings;
 
-        private List<SettingGroup> _settingList;
+        private List<ISettingGroup> _settingList;
 
         public void Init()
         {
-            //TODO don't forget to add all above SettingsGroups to list 
-            _settingList = new List<SettingGroup>
+            _settingList = new List<ISettingGroup>
             {
                 _audioSettings, 
                 _videoSettings

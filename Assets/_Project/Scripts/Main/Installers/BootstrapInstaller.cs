@@ -22,11 +22,11 @@ namespace _Project.Scripts.Main.Installers
 
         private void InstallSettingService()
         {
-            Container
+            var settingsService = Container
                 .Bind<SettingsService>()
                 .FromComponentInNewPrefab(_settingsServicePrefab)
                 .AsSingle();
-            _settingsServicePrefab.Init();
+            settingsService.OnInstantiated((ctx, obj) => ((SettingsService)obj).Init());
         }
 
         private void InstallScreenService()

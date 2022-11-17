@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.Scripts.Main
+namespace _Project.Scripts.Main.Menu
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class MenuView : MonoWrapper

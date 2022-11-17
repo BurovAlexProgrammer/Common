@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Settings
 {
-    public interface SettingGroup
+    public interface ISettingGroup
     {
         void Init();
         void Load();
@@ -14,7 +14,7 @@ namespace _Project.Scripts.Settings
     }
 
     [Serializable]
-    public class SettingGroup<T> : SettingGroup where T : SettingsSO
+    public class SettingGroup<T> : ISettingGroup where T : SettingsSO
     {
         [SerializeField] private T _default;
         [SerializeField] private T _saved;
