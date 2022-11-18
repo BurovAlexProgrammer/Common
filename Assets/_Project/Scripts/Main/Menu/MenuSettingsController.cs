@@ -20,17 +20,11 @@ namespace _Project.Scripts.Main.Menu
         public void Apply()
         {
             _settings.Save();
-
         }
 
         public void ResetToDefault()
         {
             _settings.Restore();
-        }
-
-        public void Switch(bool value)
-        {
-            
         }
 
         public void Bind(bool value, ref bool settingsValue)

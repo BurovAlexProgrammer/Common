@@ -12,15 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beade323f9494b678cfc32143371d3c9, type: 3}
   m_Name: Saved Video Settings
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   Description: New desc 45
-  Good: 1
-  _odinGood: 1
+  PostProcessAntiAliasing: 0
+  PostProcessBloom: 1
+  PostProcessVignette: 0
+  PostProcessAmbientOcclusion: 1
+  PostProcessDepthOfField: 0
