@@ -12,10 +12,19 @@ namespace _Project.Scripts.Main.Menu
         [SerializeField] private Button _buttonReset;
         [SerializeField] private VideoSettingViews _videoSettingViews;
 
+        public void Init()
+        {
+            _videoSettingViews.AntiAliasing.isOn = _controller.VideoSettings.PostProcessAntiAliasing;
+            _videoSettingViews.Bloom.isOn = _controller.VideoSettings.PostProcessBloom;
+            _videoSettingViews.Vignette.isOn = _controller.VideoSettings.PostProcessVignette;
+            _videoSettingViews.AmbientOcclusion.isOn = _controller.VideoSettings.PostProcessAmbientOcclusion;
+            _videoSettingViews.DepthOfField.isOn = _controller.VideoSettings.PostProcessDepthOfField;
+        }
+        
         private void Awake()
         {
             _buttonApply.onClick.AddListener(_controller.Apply);
-            _buttonReset.onClick.AddListener(_controller.ResetToDefault);
+            _buttonReset.onClick.AddListener(ResetToDefault);
             _videoSettingViews.AntiAliasing.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessAntiAliasing));
             _videoSettingViews.Bloom.onValueChanged.AddListener(
@@ -30,11 +39,7 @@ namespace _Project.Scripts.Main.Menu
 
         private void Start()
         {
-            _videoSettingViews.AntiAliasing.isOn = _controller.VideoSettings.PostProcessAntiAliasing;
-            _videoSettingViews.Bloom.isOn = _controller.VideoSettings.PostProcessBloom;
-            _videoSettingViews.Vignette.isOn = _controller.VideoSettings.PostProcessVignette;
-            _videoSettingViews.AmbientOcclusion.isOn = _controller.VideoSettings.PostProcessAmbientOcclusion;
-            _videoSettingViews.DepthOfField.isOn = _controller.VideoSettings.PostProcessDepthOfField;
+            Init();
         }
 
         private void OnDestroy()
@@ -45,6 +50,12 @@ namespace _Project.Scripts.Main.Menu
             _videoSettingViews.Bloom.onValueChanged.RemoveAllListeners();
             _videoSettingViews.Vignette.onValueChanged.RemoveAllListeners();
             _videoSettingViews.AmbientOcclusion.onValueChanged.RemoveAllListeners();
+        }
+
+        private void ResetToDefault()
+        {
+            _controller.ResetToDefault();
+            Init();
         }
         
         [Serializable]

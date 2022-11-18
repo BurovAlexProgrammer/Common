@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace _Project.Scripts.Settings
 {
+    [Serializable]
     [CreateAssetMenu(menuName = "Custom/Settings/Video")]
     public class VideoSettings: SettingsSO
     {
