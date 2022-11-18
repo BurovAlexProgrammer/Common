@@ -1,4 +1,3 @@
-using System;
 using _Project.Scripts.Extension;
 using DG.Tweening;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.UI;
 namespace _Project.Scripts.UI.Toggle
 {
     [RequireComponent(typeof(UnityEngine.UI.Toggle))]
-    public class ToggleSwitch : MonoBehaviour
+    public class ToggleView : MonoBehaviour
     {
         [SerializeField] private Image _handleImage;
         [SerializeField] private Image _handleBack;

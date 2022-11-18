@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 namespace _Project.Scripts.Main.Menu
@@ -8,22 +10,52 @@ namespace _Project.Scripts.Main.Menu
     {
         [SerializeField] private MenuSettingsController _controller;
         [SerializeField] private Button _buttonApply;
-        [SerializeField] private Button _buttonAdd;
         [SerializeField] private Button _buttonReset;
-        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private VideoSettingViews _videoSettingViews;
 
         private void Awake()
         {
-            _buttonAdd.onClick.AddListener(_controller.Add);
             _buttonApply.onClick.AddListener(_controller.Apply);
             _buttonReset.onClick.AddListener(_controller.ResetToDefault);
+            _videoSettingViews.AntiAliasing.onValueChanged.AddListener(
+                value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessAntiAliasing));
+            _videoSettingViews.Bloom.onValueChanged.AddListener(
+                value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessBloom));
+            _videoSettingViews.Vignette.onValueChanged.AddListener(
+                value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessVignette));
+            _videoSettingViews.AmbientOcclusion.onValueChanged.AddListener(
+                value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessAmbientOcclusion));
+            _videoSettingViews.DepthOfField.onValueChanged.AddListener(
+                value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessDepthOfField));
+        }
+
+        private void Start()
+        {
+            _videoSettingViews.AntiAliasing.isOn = _controller.VideoSettings.PostProcessAntiAliasing;
+            _videoSettingViews.Bloom.isOn = _controller.VideoSettings.PostProcessBloom;
+            _videoSettingViews.Vignette.isOn = _controller.VideoSettings.PostProcessVignette;
+            _videoSettingViews.AmbientOcclusion.isOn = _controller.VideoSettings.PostProcessAmbientOcclusion;
+            _videoSettingViews.DepthOfField.isOn = _controller.VideoSettings.PostProcessDepthOfField;
         }
 
         private void OnDestroy()
         {
-            _buttonAdd.onClick.RemoveAllListeners();
             _buttonApply.onClick.RemoveAllListeners();
             _buttonReset.onClick.RemoveAllListeners();
+            _videoSettingViews.AntiAliasing.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.Bloom.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.Vignette.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.AmbientOcclusion.onValueChanged.RemoveAllListeners();
+        }
+        
+        [Serializable]
+        private class VideoSettingViews
+        {
+            public Toggle AntiAliasing;
+            public Toggle Bloom;
+            public Toggle Vignette;
+            public Toggle AmbientOcclusion;
+            public Toggle DepthOfField;
         }
     }
 }
