@@ -6,6 +6,7 @@ using _Project.Scripts.Main.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
+using static _Project.Scripts.Extension.Common;
 using Debug = UnityEngine.Debug;
 
 namespace _Project.Scripts.Settings
@@ -33,19 +34,21 @@ namespace _Project.Scripts.Settings
 
         public void Init()
         {
+            Load();
+            
+            
+        }
+
+        public void ApplySettings()
+        {
+            
+        }
+
+        public void Load()
+        {
             StoredFolder ??= Application.dataPath + "/StoredData/";
             _storedFilePath ??= StoredFolder + $"Stored_{typeof(T).Name}.data";
 
-            // if (_saved == null)
-            // {
-            //     Debug.LogWarning(
-            //         "Current settings reference not found. Default settings using instead without saving.");
-            //     _saved = ScriptableObject.CreateInstance<T>();
-            //     _saved.CopyDataFrom(_default);
-            // }
-            // _current = ScriptableObject.CreateInstance<T>();
-            // _current.CopyDataFrom(_saved);
-            
             Directory.CreateDirectory(StoredFolder);
             _saved = ScriptableObject.CreateInstance<T>();
 
@@ -58,16 +61,11 @@ namespace _Project.Scripts.Settings
             else
             {
                 var json = File.ReadAllText(_storedFilePath);
-                var storedData = JsonConvert.DeserializeObject<T>(json, new SOConverter<T>());
+                var storedData = JsonConvert.DeserializeObject<T>(json, new ScriptableObjectConverter<T>());
                 _saved.CopyDataFrom(storedData);
             }
 
             _current = ScriptableObject.CreateInstance<T>();
-            _current.CopyDataFrom(_saved);
-        }
-
-        public void Load()
-        {
             _current.CopyDataFrom(_saved);
         }
 
@@ -92,16 +90,6 @@ namespace _Project.Scripts.Settings
         {
             var data = Serializer.ToJson(_default);
             File.WriteAllText(_storedFilePath, data);
-        }
-        
-        public class SOConverter<T> : CustomCreationConverter<T> where T : ScriptableObject
-        {
-            public override T Create(Type aObjectType)
-            {
-                if (typeof(T).IsAssignableFrom(aObjectType))
-                    return (T)ScriptableObject.CreateInstance(aObjectType);
-                return null;
-            }
         }
     }
 }

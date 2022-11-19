@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json.Converters;
+using UnityEngine;
+using Object = System.Object;
 
 namespace _Project.Scripts.Extension
 {
@@ -49,7 +52,19 @@ namespace _Project.Scripts.Extension
 
             return result;
         }
-
+        
+        //Use for deserialize via Newtonsoft
+        //JsonConvert.DeserializeObject<T>(json, new SOConverter<T>());
+        public class ScriptableObjectConverter<T> : CustomCreationConverter<T> where T : ScriptableObject
+        {
+            public override T Create(Type aObjectType)
+            {
+                if (typeof(T).IsAssignableFrom(aObjectType))
+                    return (T)ScriptableObject.CreateInstance(aObjectType);
+                return null;
+            }
+        }
+        
         private static IEnumerable<FieldInfo> GetAllDeclaredFields(this TypeInfo typeInfo)
         {
             //TODO may be optimized
