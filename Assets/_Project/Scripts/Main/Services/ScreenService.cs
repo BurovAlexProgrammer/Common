@@ -12,5 +12,7 @@ namespace _Project.Scripts.Main.Services
 
         public Camera MainCamera => _mainCamera;
         public Camera UICamera => _uiCamera;
+        public PostProcessVolume PostProcessVolume => _postProcessVolume;
+        public PostProcessLayer PostProcessLayer => _postProcessLayer;
     }
 }

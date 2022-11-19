@@ -1,3 +1,4 @@
+using _Project.Scripts.Main.Settings;
 using _Project.Scripts.Settings;
 using UnityEngine;
 using Zenject;
@@ -20,6 +21,7 @@ namespace _Project.Scripts.Main.Menu
         public void Apply()
         {
             _settings.Save();
+            _settings.Apply();
         }
 
         public void ResetToDefault()

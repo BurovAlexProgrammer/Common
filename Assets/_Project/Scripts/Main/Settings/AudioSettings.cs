@@ -9,6 +9,10 @@ namespace _Project.Scripts.Settings
             public float SoundVolume;
             public bool MusicEnabled;
             public float MusicVolume;
+            public override void ApplySettings()
+            {
+                
+            }
         }
         
         public static class AudioSettingsAttributes

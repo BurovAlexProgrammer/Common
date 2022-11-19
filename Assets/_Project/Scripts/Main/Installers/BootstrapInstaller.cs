@@ -16,8 +16,8 @@ namespace _Project.Scripts.Main.Installers
         {
             InstallSceneLoaderService();
             InstallScreenService();
-            InstallSettingService();
             InstallGameManagerService();
+            InstallSettingService();
         }
 
         private void InstallSettingService()
@@ -34,7 +34,8 @@ namespace _Project.Scripts.Main.Installers
             Container
                 .Bind<ScreenService>()
                 .FromComponentInNewPrefab(_screenServicePrefab)
-                .AsSingle();
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallSceneLoaderService()

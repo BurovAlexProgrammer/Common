@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Scripts.Main.Settings;
 using _Project.Scripts.Settings;
 using UnityEngine;
 using AudioSettings = _Project.Scripts.Settings.AudioSettings;
@@ -58,6 +59,14 @@ namespace _Project.Scripts.Main.Services
             foreach (var settingGroup in _settingList)
             {
                 settingGroup.Restore();
+            }
+        }
+
+        public void Apply()
+        {
+            foreach (var settingGroup in _settingList)
+            {
+                settingGroup.ApplySettings();
             }
         }
     }

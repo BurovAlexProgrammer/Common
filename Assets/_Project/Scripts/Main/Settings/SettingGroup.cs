@@ -1,15 +1,14 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
+using _Project.Scripts.Settings;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using UnityEngine;
 using static _Project.Scripts.Extension.Common;
 using Debug = UnityEngine.Debug;
 
-namespace _Project.Scripts.Settings
+namespace _Project.Scripts.Main.Settings
 {
     public interface ISettingGroup
     {
@@ -18,6 +17,7 @@ namespace _Project.Scripts.Settings
         void Save();
         void Cancel();
         void Restore();
+        void ApplySettings();
     }
 
     [Serializable]
@@ -29,19 +29,18 @@ namespace _Project.Scripts.Settings
         
         public T CurrentSettings => _current;
 
-        private static string StoredFolder; //Move to File Service
+        private static string StoredFolder; //TODO Move to File Service
         private string _storedFilePath;
 
         public void Init()
         {
             Load();
-            
-            
+            ApplySettings();
         }
 
         public void ApplySettings()
         {
-            
+            _saved.ApplySettings();
         }
 
         public void Load()
