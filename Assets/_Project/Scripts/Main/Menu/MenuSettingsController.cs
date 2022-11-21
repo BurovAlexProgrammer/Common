@@ -26,6 +26,7 @@ namespace _Project.Scripts.Main.Menu
         public void ResetToDefault()
         {
             _settings.Restore();
+            _settings.Apply();
         }
 
         public void Bind(bool value, ref bool settingsValue)

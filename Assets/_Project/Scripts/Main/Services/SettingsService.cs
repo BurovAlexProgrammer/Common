@@ -33,7 +33,7 @@ namespace _Project.Scripts.Main.Services
         {
             foreach (var settingGroup in _settingList)
             {
-                settingGroup.Load();
+                settingGroup.LoadFromFile();
             }
         }
 
@@ -41,7 +41,9 @@ namespace _Project.Scripts.Main.Services
         {
             foreach (var settingGroup in _settingList)
             {
-                settingGroup.Save();
+                settingGroup.SaveToFile();
+                settingGroup.Init();
+                settingGroup.LoadFromFile();
             }
         }
 

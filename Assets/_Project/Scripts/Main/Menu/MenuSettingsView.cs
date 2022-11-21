@@ -27,12 +27,16 @@ namespace _Project.Scripts.Main.Menu
             _buttonReset.onClick.AddListener(ResetToDefault);
             _videoSettingViews.AntiAliasing.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessAntiAliasing));
+            
             _videoSettingViews.Bloom.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessBloom));
+            
             _videoSettingViews.Vignette.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessVignette));
+            
             _videoSettingViews.AmbientOcclusion.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessAmbientOcclusion));
+            
             _videoSettingViews.DepthOfField.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessDepthOfField));
         }
@@ -50,6 +54,7 @@ namespace _Project.Scripts.Main.Menu
             _videoSettingViews.Bloom.onValueChanged.RemoveAllListeners();
             _videoSettingViews.Vignette.onValueChanged.RemoveAllListeners();
             _videoSettingViews.AmbientOcclusion.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.DepthOfField.onValueChanged.RemoveAllListeners();
         }
 
         private void ResetToDefault()

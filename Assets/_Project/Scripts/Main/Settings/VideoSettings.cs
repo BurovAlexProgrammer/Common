@@ -21,50 +21,42 @@ namespace _Project.Scripts.Main.Settings
         public bool PostProcessChromaticAberration;
         public bool PostProcessLensDistortion;
         public bool PostProcessMotionBlur;
-        
-        private PostProcessLayer _postProcessLayer;
-        private PostProcessVolume _postProcessVolume;
 
         [Inject]
         public void Construct(ScreenService screenService)
         {
             //TODO Research. Inject does not call, dont know why.
         }
-
-        //Crutch instead of injection
-        public override void Init()
-        {
-            _postProcessLayer = BootstrapInstaller.ScreenService.PostProcessLayer;
-            _postProcessVolume = BootstrapInstaller.ScreenService.PostProcessVolume;
-        }
-
+        
         public override void ApplySettings()
         {
-            _postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
-            foreach (var effectSettings in _postProcessVolume.sharedProfile.settings)
+            var postProcessLayer = BootstrapInstaller.ScreenService.PostProcessLayer;   //Crutch instead of injection
+            var postProcessVolume = BootstrapInstaller.ScreenService.PostProcessVolume; //Crutch instead of injection
+            postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
+            foreach (var effectSettings in postProcessVolume.profile.settings)
             {
                 switch (effectSettings)
                 {
                     case AmbientOcclusion:
-                        effectSettings.enabled.value = PostProcessAmbientOcclusion;
+                        effectSettings.enabled.Override(PostProcessAmbientOcclusion);
                         break;
                     case Bloom:
-                        effectSettings.enabled.value = PostProcessBloom;
+                        effectSettings.enabled.Override(PostProcessBloom);
                         break;
                     case ChromaticAberration:
-                        effectSettings.enabled.value = PostProcessChromaticAberration;
+                        effectSettings.enabled.Override(PostProcessChromaticAberration);
                         break;
                     case DepthOfField:
-                        effectSettings.enabled.value = PostProcessDepthOfField;
+                        effectSettings.enabled.Override(PostProcessDepthOfField);
                         break;
                     case LensDistortion:
-                        effectSettings.enabled.value = PostProcessLensDistortion;
+                        effectSettings.enabled.Override(PostProcessLensDistortion);
                         break;
                     case MotionBlur:
-                        effectSettings.enabled.value = PostProcessMotionBlur;
+                        effectSettings.enabled.Override(PostProcessMotionBlur);
                         break;
                     case Vignette:
-                        effectSettings.enabled.value = PostProcessVignette;
+                        effectSettings.enabled.Override(PostProcessVignette);
                         break;
                     case ColorGrading:
                         break;

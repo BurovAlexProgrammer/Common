@@ -7,6 +7,5 @@ namespace _Project.Scripts.Settings
         public string Description;
 
         public abstract void ApplySettings();
-        public abstract void Init();
     }
 }

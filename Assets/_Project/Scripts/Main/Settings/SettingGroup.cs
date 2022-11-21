@@ -15,8 +15,8 @@ namespace _Project.Scripts.Main.Settings
     public interface ISettingGroup
     {
         void Init();
-        void Load();
-        void Save();
+        void LoadFromFile();
+        void SaveToFile();
         void Cancel();
         void Restore();
         void ApplySettings();
@@ -36,8 +36,7 @@ namespace _Project.Scripts.Main.Settings
 
         public void Init()
         {
-            Load();
-            _saved.Init();
+            LoadFromFile();
             ApplySettings();
         }
 
@@ -46,7 +45,7 @@ namespace _Project.Scripts.Main.Settings
             _saved.ApplySettings();
         }
 
-        public void Load()
+        public void LoadFromFile()
         {
             StoredFolder ??= Application.dataPath + "/StoredData/";
             _storedFilePath ??= StoredFolder + $"Stored_{typeof(T).Name}.data";
@@ -67,11 +66,11 @@ namespace _Project.Scripts.Main.Settings
                 _saved.CopyDataFrom(storedData);
             }
 
-            _current = ScriptableObject.CreateInstance<T>();
+            _current ??= ScriptableObject.CreateInstance<T>();
             _current.CopyDataFrom(_saved);
         }
 
-        public void Save()
+        public void SaveToFile()
         {
             var data = Serializer.ToJson(_current);
             File.WriteAllText(_storedFilePath, data);

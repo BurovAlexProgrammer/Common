@@ -12,10 +12,6 @@ namespace _Project.Scripts.Settings
             public override void ApplySettings()
             {
             }
-
-            public override void Init()
-            {
-            }
         }
         
         public static class AudioSettingsAttributes
