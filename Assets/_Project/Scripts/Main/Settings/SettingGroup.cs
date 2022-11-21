@@ -1,10 +1,12 @@
 using System;
 using System.IO;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.Services;
 using _Project.Scripts.Main.Wrappers;
 using _Project.Scripts.Settings;
 using Newtonsoft.Json;
 using UnityEngine;
+using Zenject;
 using static _Project.Scripts.Extension.Common;
 using Debug = UnityEngine.Debug;
 
@@ -35,6 +37,7 @@ namespace _Project.Scripts.Main.Settings
         public void Init()
         {
             Load();
+            _saved.Init();
             ApplySettings();
         }
 

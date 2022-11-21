@@ -1,5 +1,4 @@
 using _Project.Scripts.Main.Services;
-using _Project.Scripts.Settings;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +11,9 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private SettingsService _settingsServicePrefab;
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
 
+        private static ScreenService _screenService;
+        public static ScreenService ScreenService => _screenService;
+        
         public override void InstallBindings()
         {
             InstallSceneLoaderService();
@@ -22,11 +24,15 @@ namespace _Project.Scripts.Main.Installers
 
         private void InstallSettingService()
         {
-            var settingsService = Container
+            Container
                 .Bind<SettingsService>()
                 .FromComponentInNewPrefab(_settingsServicePrefab)
-                .AsSingle();
-            settingsService.OnInstantiated((ctx, instance) => ((SettingsService)instance).Init());
+                .AsSingle()
+                .OnInstantiated((ctx, instance) =>
+                {
+                    var settingService = (SettingsService)instance;
+                    settingService.Init();
+                });
         }
 
         private void InstallScreenService()
@@ -35,6 +41,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<ScreenService>()
                 .FromComponentInNewPrefab(_screenServicePrefab)
                 .AsSingle()
+                .OnInstantiated((ctx, instance) => _screenService = (ScreenService)instance)
                 .NonLazy();
         }
 

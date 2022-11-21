@@ -1,5 +1,4 @@
 using _Project.Scripts.Main.Settings;
-using _Project.Scripts.Settings;
 using UnityEngine;
 using Zenject;
 using SettingsService = _Project.Scripts.Main.Services.SettingsService;

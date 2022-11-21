@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Services;
 using _Project.Scripts.Settings;
 using UnityEngine;
@@ -21,17 +22,20 @@ namespace _Project.Scripts.Main.Settings
         public bool PostProcessLensDistortion;
         public bool PostProcessMotionBlur;
         
-
-        private ScreenService _screenService;
         private PostProcessLayer _postProcessLayer;
         private PostProcessVolume _postProcessVolume;
 
         [Inject]
         public void Construct(ScreenService screenService)
         {
-            _screenService = screenService;
-            _postProcessLayer = screenService.PostProcessLayer;
-            _postProcessVolume = screenService.PostProcessVolume;
+            //TODO Research. Inject does not call, dont know why.
+        }
+
+        //Crutch instead of injection
+        public override void Init()
+        {
+            _postProcessLayer = BootstrapInstaller.ScreenService.PostProcessLayer;
+            _postProcessVolume = BootstrapInstaller.ScreenService.PostProcessVolume;
         }
 
         public override void ApplySettings()
@@ -41,26 +45,28 @@ namespace _Project.Scripts.Main.Settings
             {
                 switch (effectSettings)
                 {
-                    case AmbientOcclusion ambientOcclusion:
+                    case AmbientOcclusion:
                         effectSettings.enabled.value = PostProcessAmbientOcclusion;
                         break;
-                    case Bloom bloom:
+                    case Bloom:
                         effectSettings.enabled.value = PostProcessBloom;
                         break;
-                    case ChromaticAberration chromaticAberration:
+                    case ChromaticAberration:
                         effectSettings.enabled.value = PostProcessChromaticAberration;
                         break;
-                    case DepthOfField depthOfField:
+                    case DepthOfField:
                         effectSettings.enabled.value = PostProcessDepthOfField;
                         break;
-                    case LensDistortion lensDistortion:
+                    case LensDistortion:
                         effectSettings.enabled.value = PostProcessLensDistortion;
                         break;
-                    case MotionBlur motionBlur:
+                    case MotionBlur:
                         effectSettings.enabled.value = PostProcessMotionBlur;
                         break;
-                    case Vignette vignette:
+                    case Vignette:
                         effectSettings.enabled.value = PostProcessVignette;
+                        break;
+                    case ColorGrading:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(effectSettings));

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using _Project.Scripts.Main.Settings;
-using _Project.Scripts.Settings;
 using UnityEngine;
 using AudioSettings = _Project.Scripts.Settings.AudioSettings;
 
@@ -10,11 +9,11 @@ namespace _Project.Scripts.Main.Services
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
+        
+        private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
         public AudioSettings Audio => _audioSettings.CurrentSettings;
-
-        private List<ISettingGroup> _settingList;
 
         public void Init()
         {
