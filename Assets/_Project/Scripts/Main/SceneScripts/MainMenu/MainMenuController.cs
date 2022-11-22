@@ -10,23 +10,17 @@ using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.SceneScripts.MainMenu
 {
-    public class MainMenuStateMachine : MonoBehaviour
+    public class MainMenuController : MonoBehaviour
     {
-
         [LabeledArray(typeof(MenuStates))]
         [SerializeField]
         private MenuView[] _menus;
         
         private MenuStates _activeState;
-        private SceneLoaderService _sceneLoader;
+        [Inject] private SceneLoaderService _sceneLoader;
+        [Inject] private GameManagerService _gameManager;
 
         public MenuStates ActiveState => _activeState;
-
-        [Inject]
-        public void Construct(SceneLoaderService sceneLoaderService)
-        {
-            _sceneLoader = sceneLoaderService;
-        }
 
         private void Awake()
         {
@@ -47,9 +41,15 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
             await EnterState(newState);
         }
 
+        public async void QuitGame()
+        {
+            await _sceneLoader.HideScene();
+            _gameManager.QuitGame();
+        }
+
         private async UniTask EnterState(MenuStates newState)
         {
-            Debug.Log("GameState Enter: " + newState, this);
+            Debug.Log("MenuState Enter: " + newState, this);
             var menu = GetMenu(newState);
             await menu.Show();
             menu.Enable();
