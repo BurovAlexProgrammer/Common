@@ -47,7 +47,7 @@ namespace _Project.Scripts.Main.Services
                 .OnComplete(() => _blackFrame.gameObject.SetActive(false));
         }
 
-        private async UniTask HideScene()
+        public async UniTask HideScene()
         {
             _blackFrame.gameObject.SetActive(true);
             await _blackFrame

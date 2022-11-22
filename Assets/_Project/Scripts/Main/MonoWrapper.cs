@@ -5,15 +5,15 @@ namespace _Project.Scripts.Main
 {
     public abstract class MonoWrapper : MonoBehaviour
     {
-        private new GameObject gameObject;
-        private new Transform transform;
-        [HideInInspector] public Transform _transform;
-        [HideInInspector] public GameObject _gameObject;
+        private GameObject _gameObjectRef;
+        private Transform _transformRef;
+        public GameObject _gameObject => _gameObjectRef ?? gameObject;
+        public Transform _transform => _transformRef ?? transform;
 
         public virtual void Awake()
         {
-            _transform = base.transform;
-            _gameObject = base.gameObject;
+            _transformRef = base.transform;
+            _gameObjectRef = base.gameObject;
         }
     }
 }

@@ -45,6 +45,11 @@ namespace _Project.Scripts.Main
                     break;
                 case GameStates.GamePause:
                     break;
+                case GameStates.GameQuit:
+                    
+                    break;
+                default:
+                    throw new Exception("GameManager: unknown state.");
             }
         }
         
@@ -57,12 +62,13 @@ namespace _Project.Scripts.Main
                     await ExitStateBoot();
                     break;
                 case GameStates.MainMenu:
-                    
                     break;
                 case GameStates.PlayGame:
                     break;
                 case GameStates.GamePause:
                     break;
+                default:
+                    throw new Exception("GameManager: unknown state.");
             }
         }
 
@@ -72,8 +78,7 @@ namespace _Project.Scripts.Main
             await Wait(1f);
             SetState(GameStates.MainMenu);
         }
-            
-            
+
         private async UniTask ExitStateBoot()
         {
             await UniTask.Delay(1);
@@ -87,6 +92,6 @@ namespace _Project.Scripts.Main
 
     public enum GameStates
     {
-        Boot, MainMenu, PlayGame, GamePause
+        Boot, MainMenu, PlayGame, GamePause, GameQuit
     }
 }

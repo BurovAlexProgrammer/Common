@@ -1,6 +1,4 @@
-using DG.Tweening;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Services
 {
@@ -9,5 +7,14 @@ namespace _Project.Scripts.Main.Services
         [SerializeField] private GameStateMachine _gameStateMachine;
         
         public GameStateMachine GameStateMachine => _gameStateMachine;
+
+        public void QuitGame()
+        {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else 
+            Application.Quit();
+            #endif
+        }
     }
 }
