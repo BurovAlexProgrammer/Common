@@ -6,8 +6,8 @@ namespace _Project.Scripts.Main.Services
 {
     public class GameManagerService : MonoBehaviour
     {
-        [SerializeField] private GameState _gameState;
+        [SerializeField] private GameStateMachine _gameStateMachine;
         
-        public GameState GameState => _gameState;
+        public GameStateMachine GameStateMachine => _gameStateMachine;
     }
 }

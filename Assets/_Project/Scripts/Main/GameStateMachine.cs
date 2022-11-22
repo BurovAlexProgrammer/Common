@@ -1,6 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
@@ -8,7 +7,7 @@ using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main
 {
-    public class GameState : MonoBehaviour
+    public class GameStateMachine : MonoBehaviour
     {
         private GameStates _activeState;
         private SceneLoaderService _sceneLoader;

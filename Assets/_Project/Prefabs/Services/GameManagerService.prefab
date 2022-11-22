@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507feb2f66bd4fe69b663c750d4b87a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameState: {fileID: 6174875283313610120}
+  _gameStateMachine: {fileID: 6174875283313610120}
 --- !u!1 &5836292985655329707
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1211397420146915024}
   - component: {fileID: 6174875283313610120}
   m_Layer: 0
-  m_Name: GameState
+  m_Name: GameStateMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
