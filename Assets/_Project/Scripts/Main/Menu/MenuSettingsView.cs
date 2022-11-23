@@ -12,15 +12,6 @@ namespace _Project.Scripts.Main.Menu
         [SerializeField] private Button _buttonReset;
         [SerializeField] private VideoSettingViews _videoSettingViews;
 
-        public void Init()
-        {
-            _videoSettingViews.AntiAliasing.isOn = _controller.VideoSettings.PostProcessAntiAliasing;
-            _videoSettingViews.Bloom.isOn = _controller.VideoSettings.PostProcessBloom;
-            _videoSettingViews.Vignette.isOn = _controller.VideoSettings.PostProcessVignette;
-            _videoSettingViews.AmbientOcclusion.isOn = _controller.VideoSettings.PostProcessAmbientOcclusion;
-            _videoSettingViews.DepthOfField.isOn = _controller.VideoSettings.PostProcessDepthOfField;
-        }
-        
         private void Awake()
         {
             _buttonApply.onClick.AddListener(_controller.Apply);
@@ -46,6 +37,15 @@ namespace _Project.Scripts.Main.Menu
             Init();
         }
 
+        private void Init()
+        {
+            _videoSettingViews.AntiAliasing.isOn = _controller.VideoSettings.PostProcessAntiAliasing;
+            _videoSettingViews.Bloom.isOn = _controller.VideoSettings.PostProcessBloom;
+            _videoSettingViews.Vignette.isOn = _controller.VideoSettings.PostProcessVignette;
+            _videoSettingViews.AmbientOcclusion.isOn = _controller.VideoSettings.PostProcessAmbientOcclusion;
+            _videoSettingViews.DepthOfField.isOn = _controller.VideoSettings.PostProcessDepthOfField;
+        }
+        
         private void OnDestroy()
         {
             _buttonApply.onClick.RemoveAllListeners();

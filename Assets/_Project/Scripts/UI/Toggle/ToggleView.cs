@@ -31,6 +31,11 @@ namespace _Project.Scripts.UI.Toggle
             _toggle.onValueChanged.AddListener(OnSwitch);
         }
 
+        private void Start()
+        {
+            OnSwitch(_toggle.isOn);
+        }
+
         private void OnSwitch(bool newState)
         {
             var handlePosition = newState ? _handleActivePosition : _handleInactivePosition;

@@ -32,6 +32,7 @@ namespace _Project.Scripts.Main.Installers
                 {
                     var settingService = (SettingsService)instance;
                     settingService.Init();
+                    settingService.Load();
                 });
         }
 
