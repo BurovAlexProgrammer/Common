@@ -8,22 +8,26 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Services
 {
-    public class SceneLoaderService: MonoBehaviour
+    public class SceneLoaderService : MonoBehaviour
     {
         [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;
         [SerializeField] private AnimationCurve _fadeCurve;
-        
-        public string MainMenuScene => _mainMenuScene.scenePath;
+
         private Scene _currentScene;
         private Scene _preparedScene;
-        
+        private Scene _initialScene;
+
+        public string MainMenuScene => _mainMenuScene.scenePath;
+        public Scene InitialScene => _initialScene;
+
         public void Init()
         {
+            _initialScene = SceneManager.GetActiveScene();
             _blackFrame.alpha = 1f;
             ShowScene();
         }
-        
+
         public void LoadScene(Scenes scene)
         {
             var sceneName = GetScene(scene);
@@ -55,7 +59,7 @@ namespace _Project.Scripts.Main.Services
                 .From(0f)
                 .AsyncWaitForCompletion();
         }
-        
+
         private async UniTask PrepareScene(string scenePath)
         {
             _currentScene = SceneManager.GetActiveScene();
@@ -70,7 +74,7 @@ namespace _Project.Scripts.Main.Services
             SceneManager.SetActiveScene(_preparedScene);
             SceneManager.UnloadSceneAsync(_currentScene);
         }
-        
+
         public enum Scenes
         {
             Boot,
@@ -78,15 +82,25 @@ namespace _Project.Scripts.Main.Services
             IntroLevel,
         }
 
-        private Dictionary<Scenes, string> ScenesNames = new Dictionary<Scenes, string>()
+        private string GetSceneName(Scenes scene)
         {
-            {Scenes.Boot, "Boot"},
-            { Scenes.MainMenu, "MainMenu"},
+            return SceneNames[scene];
+        }
+
+        public bool InitialSceneEquals(Scenes scene)
+        {
+            return GetSceneName(scene).Equals(_initialScene.name);
+        }
+
+        private Dictionary<Scenes, string> SceneNames = new Dictionary<Scenes, string>()
+        {
+            { Scenes.Boot, "Boot" },
+            { Scenes.MainMenu, "MainMenu" },
         };
 
         private string GetScene(Scenes scene)
         {
-            if (ScenesNames.ContainsKey(scene)) return ScenesNames[scene];
+            if (SceneNames.ContainsKey(scene)) return SceneNames[scene];
 
             throw new Exception("Scene Key not found!");
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
 using static _Project.Scripts.Extension.Common;
+using static _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
 
 namespace _Project.Scripts.Main
 {
@@ -20,7 +21,14 @@ namespace _Project.Scripts.Main
         public void Construct(SceneLoaderService sceneLoaderService)
         {
             _sceneLoader = sceneLoaderService;
-            _ = EnterState(GameStates.Boot);
+            if (sceneLoaderService.InitialSceneEquals(Boot))
+            {
+                _ = EnterState(GameStates.Boot);
+            }
+            else
+            {
+                _ = EnterState(GameStates.CustomSceneBoot);
+            }
         }
 
         public async void SetState(GameStates newState)
@@ -35,6 +43,9 @@ namespace _Project.Scripts.Main
             Debug.Log("GameState Enter: " + newState, this);
             switch (newState)
             {
+                case GameStates.CustomSceneBoot:
+                    await EnterStateCustomBoot();
+                    break;
                 case GameStates.Boot:
                     await EnterStateBoot();
                     break;
@@ -79,6 +90,12 @@ namespace _Project.Scripts.Main
             SetState(GameStates.MainMenu);
         }
 
+        private async UniTask EnterStateCustomBoot()
+        {
+            _sceneLoader.Init();
+            
+        }
+
         private async UniTask ExitStateBoot()
         {
             await UniTask.Delay(1);
@@ -86,12 +103,12 @@ namespace _Project.Scripts.Main
 
         private void EnterStateMainMenu()
         {
-            _sceneLoader.LoadScene(SceneLoaderService.Scenes.MainMenu);
+            _sceneLoader.LoadScene(MainMenu);
         }
     }
 
     public enum GameStates
     {
-        Boot, MainMenu, PlayGame, GamePause, GameQuit
+        CustomSceneBoot, Boot, MainMenu, PlayGame, GamePause, GameQuit
     }
 }
