@@ -82,3 +82,5 @@ MonoBehaviour:
     type: 3}
   _gameManagerServicePrefab: {fileID: 8574195792987425785, guid: c27ff4d6fd8ee25479c30c8543fec2ec,
     type: 3}
+  _localizationServicePrefab: {fileID: 7228563311622869819, guid: 0cc04c897eee5124b93c5c4e6a2c98b7,
+    type: 3}

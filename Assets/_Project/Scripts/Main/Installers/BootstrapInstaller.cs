@@ -10,6 +10,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private ScreenService _screenServicePrefab;
         [SerializeField] private SettingsService _settingsServicePrefab;
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
+        [SerializeField] private LocalizationService _localizationServicePrefab;
 
         private static ScreenService _screenService;
         public static ScreenService ScreenService => _screenService;
@@ -20,6 +21,7 @@ namespace _Project.Scripts.Main.Installers
             InstallScreenService();
             InstallGameManagerService();
             InstallSettingService();
+            InstallLocalizationService();
         }
 
         private void InstallSettingService()
@@ -59,6 +61,15 @@ namespace _Project.Scripts.Main.Installers
             Container
                 .Bind<GameManagerService>()
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        void InstallLocalizationService()
+        {
+            Container
+                .Bind<LocalizationService>()
+                .FromComponentInNewPrefab(_localizationServicePrefab)
                 .AsSingle()
                 .NonLazy();
         }

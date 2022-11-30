@@ -32,7 +32,7 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
 
         private void Start()
         {
-            _ = EnterState(MenuStates.Settings);
+            _ = EnterState(MenuStates.MainMenu);
         }
 
         public async void SetState(MenuStates newState)
