@@ -45,3 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentLocale: 0
+  _assetReference:
+    m_AssetGUID: 4cb0659b894a2d747bee10358adac237
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _assetReferencePath:
+    m_AssetGUID: 7b0e00264f0d4df418a2dd0b4a887fb8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

@@ -17,6 +17,11 @@ namespace _Project.Scripts.Main.Services
         private Scene _currentScene;
         private Scene _preparedScene;
         private Scene _initialScene;
+        private readonly Dictionary<Scenes, string> _sceneNames = new()
+        {
+            { Scenes.Boot, "Boot" },
+            { Scenes.MainMenu, "MainMenu" },
+        };
 
         public string MainMenuScene => _mainMenuScene.scenePath;
         public Scene InitialScene => _initialScene;
@@ -84,7 +89,7 @@ namespace _Project.Scripts.Main.Services
 
         private string GetSceneName(Scenes scene)
         {
-            return SceneNames[scene];
+            return _sceneNames[scene];
         }
 
         public bool InitialSceneEquals(Scenes scene)
@@ -92,15 +97,9 @@ namespace _Project.Scripts.Main.Services
             return GetSceneName(scene).Equals(_initialScene.name);
         }
 
-        private Dictionary<Scenes, string> SceneNames = new Dictionary<Scenes, string>()
-        {
-            { Scenes.Boot, "Boot" },
-            { Scenes.MainMenu, "MainMenu" },
-        };
-
         private string GetScene(Scenes scene)
         {
-            if (SceneNames.ContainsKey(scene)) return SceneNames[scene];
+            if (_sceneNames.ContainsKey(scene)) return _sceneNames[scene];
 
             throw new Exception("Scene Key not found!");
         }
