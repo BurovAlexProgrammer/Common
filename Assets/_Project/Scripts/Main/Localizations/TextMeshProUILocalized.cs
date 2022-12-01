@@ -1,5 +1,4 @@
 using _Project.Scripts.Main.Services;
-using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -7,7 +6,7 @@ using Zenject;
 namespace _Project.Scripts.Main.Localizations
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class TextMeshProUILocalized : MonoBehaviour
+    public class TextMeshProUILocalized : LocalizedTextComponent
     {
         [SerializeField] private string _localizedTextKey;
 
@@ -20,15 +19,8 @@ namespace _Project.Scripts.Main.Localizations
             _textMesh = GetComponent<TextMeshProUGUI>();
         }
 
-        private async void Start()
+        protected override void SetText()
         {
-            while (!_localization.IsLoaded)
-            {
-                await UniTask.NextFrame();
-                Debug.Log("await");
-            }
-
-            Debug.Log("Done");
             _textMesh.text = _localization.GetLocalizedText(_localizedTextKey);
         }
     }
