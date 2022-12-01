@@ -71,6 +71,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<LocalizationService>()
                 .FromComponentInNewPrefab(_localizationServicePrefab)
                 .AsSingle()
+                .OnInstantiated((ctx, instance) => (instance as LocalizationService).Init())
                 .NonLazy();
         }
     }

@@ -20,17 +20,11 @@ namespace _Project.Scripts.Main.Wrappers
             _locale = ParseLocale(locale);
             _info = JsonConvert.DeserializeObject<LocaleInfo>(infoJson);
             _localizedItems = new Dictionary<string, LocalizedItem>();
-            var localizedItemList = new List<LocalizedItem>();
             
             foreach (var line in lines)
             {
                 var localizedItem = ParseLine(line);
                 if (localizedItem == null) continue;
-                localizedItemList.Add(localizedItem);
-            }
-            
-            foreach (var localizedItem in localizedItemList)
-            {
                 _localizedItems.Add(localizedItem.Key, localizedItem);
             }
         }

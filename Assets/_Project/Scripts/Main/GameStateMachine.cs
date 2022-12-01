@@ -44,7 +44,7 @@ namespace _Project.Scripts.Main
             switch (newState)
             {
                 case GameStates.CustomSceneBoot:
-                    await EnterStateCustomBoot();
+                    EnterStateCustomBoot();
                     break;
                 case GameStates.Boot:
                     await EnterStateBoot();
@@ -90,10 +90,9 @@ namespace _Project.Scripts.Main
             SetState(GameStates.MainMenu);
         }
 
-        private async UniTask EnterStateCustomBoot()
+        private void EnterStateCustomBoot()
         {
-            _sceneLoader.Init();
-            
+           _sceneLoader.Init();
         }
 
         private async UniTask ExitStateBoot()
