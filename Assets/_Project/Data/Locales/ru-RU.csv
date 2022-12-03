@@ -1,4 +1,5 @@
 ru_RU
 {name: 'Russian'}
-fillFormat: key;description;original;translate
-test;test key;test;тест
+fillFormat: key;description;original;translate;
+test;test key;test;тест;
+test2;;;;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using _Project.Scripts.Extension;
@@ -17,6 +18,8 @@ namespace _Project.Scripts.Main.Services
         private Localization _currentLocalization;
         private bool _isLoaded;
 
+        private const Locales OriginalLocale = Locales.en_EN;
+
         public bool IsLoaded => _isLoaded;
         
         public async void Init()
@@ -31,11 +34,12 @@ namespace _Project.Scripts.Main.Services
             }
 
             await Task.WhenAll(aoHandles.Select(x => x.Task).ToArray());
-            var localeTextList = aoHandles.Select(x => x.Result).ToList();
-            
-            foreach (var localeText in localeTextList)
+
+            for (var i = 0; i < aoHandles.Count; i++)
             {
-                var localization = LoadLocaleFile(localeText);
+                var localeText = aoHandles[i].Result;
+                var filePath = resourceLocations[i];
+                var localization = LoadLocaleFile(localeText, filePath.ToString());
                 _localizations.Add(localization.Locale, localization);
             }
 
@@ -46,7 +50,7 @@ namespace _Project.Scripts.Main.Services
             _isLoaded = true;
         }
 
-        private Localization LoadLocaleFile(TextAsset textAsset)
+        private Localization LoadLocaleFile(TextAsset textAsset, string filePath)
         {
             var lines = textAsset.text.SplitLines();
             var locale = lines[0];
@@ -59,12 +63,43 @@ namespace _Project.Scripts.Main.Services
                 itemList.Add(lines[i]);
             }
 
-            return new Localization(locale, formatInfoMaybeJson, itemList.ToArray());
+            return new Localization(locale, formatInfoMaybeJson, itemList.ToArray(), filePath);
         }
         
         public string GetLocalizedText(string key)
         {
+            if (!_currentLocalization.LocalizedItems.ContainsKey(key))
+            {
+                AddNewKeyToDictionary(key);
+                return _currentLocalization.LocalizedItems[key].Key;
+            }
+            
             return _currentLocalization.LocalizedItems[key].Text;
+        }
+
+        private void AddNewKeyToDictionary(string newKey)
+        {
+            //TODO record to files
+            if (Application.isEditor)
+            {
+                Debug.LogError($"Key '{newKey}' not in current locale '{_currentLocale.ToString()}'.");
+                var localizations = _localizations.Select((x) => x.Value);
+                foreach (var localization in localizations)
+                {
+                    if (localization.LocalizedItems.ContainsKey(newKey) == false)
+                    {
+                        Debug.LogWarning($"The key is not in locale '{localization.Locale.ToString()}'. Adding new key..");
+                        var fullPath = Application.dataPath + localization.FilePathInEditor.Replace("Assets", "");
+                        using var streamWriter = File.AppendText(fullPath);
+                        streamWriter.WriteLine(newKey + ";;;;");
+                        localization.LocalizedItems.Add(newKey, new LocalizedItem() {Key = newKey, Text = "NOT TRANSLATED"});
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError($"Key '{newKey}' not in current locale '{_currentLocale.ToString()}'");
+            }
         }
     }
 }

@@ -9,17 +9,20 @@ namespace _Project.Scripts.Main.Wrappers
         private Locales _locale;
         private LocaleInfo _info;
         private Dictionary<string, LocalizedItem> _localizedItems;
+        private string _filePathInEditor;
 
         public Locales Locale => _locale;
         public LocaleInfo Info => _info;
         public Dictionary<string, LocalizedItem> LocalizedItems => _localizedItems;
+        public string FilePathInEditor => _filePathInEditor;
 
 
-        public Localization(string locale, string infoJson, string[] lines)
+        public Localization(string locale, string infoJson, string[] lines, string filePathInEditor)
         {
             _locale = ParseLocale(locale);
             _info = JsonConvert.DeserializeObject<LocaleInfo>(infoJson);
             _localizedItems = new Dictionary<string, LocalizedItem>();
+            _filePathInEditor = filePathInEditor;
             
             foreach (var line in lines)
             {
