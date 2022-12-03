@@ -71,7 +71,6 @@ namespace _Project.Scripts.Main.Services
             if (!_currentLocalization.LocalizedItems.ContainsKey(key))
             {
                 AddNewKeyToDictionary(key);
-                return _currentLocalization.LocalizedItems[key].Key;
             }
             
             return _currentLocalization.LocalizedItems[key].Text;
@@ -89,10 +88,12 @@ namespace _Project.Scripts.Main.Services
                     if (localization.LocalizedItems.ContainsKey(newKey) == false)
                     {
                         Debug.LogWarning($"The key is not in locale '{localization.Locale.ToString()}'. Adding new key..");
-                        var fullPath = Application.dataPath + localization.FilePathInEditor.Replace("Assets", "");
+                        var fullPath = Path.Combine(Application.dataPath, "../") +
+                                       localization.FilePathInEditor.Replace("Assets", "");
                         using var streamWriter = File.AppendText(fullPath);
-                        streamWriter.WriteLine(newKey + ";;;;");
-                        localization.LocalizedItems.Add(newKey, new LocalizedItem() {Key = newKey, Text = "NOT TRANSLATED"});
+                        streamWriter.WriteLine($"{newKey};;;key.{newKey};");
+                        var newLocalizedItem = new LocalizedItem() { Key = newKey, Text = $"key^{newKey}" };
+                        localization.LocalizedItems.Add(newKey, newLocalizedItem);
                     }
                 }
             }

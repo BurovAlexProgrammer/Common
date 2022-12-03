@@ -2,7 +2,8 @@
     "name": "Extension.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:97903ecf262b3294eb1292f1ac8203d4"
+        "GUID:97903ecf262b3294eb1292f1ac8203d4",
+        "GUID:4b64ed143a0025a429a620d5ccd0b98a"
     ],
     "includePlatforms": [
         "Editor"

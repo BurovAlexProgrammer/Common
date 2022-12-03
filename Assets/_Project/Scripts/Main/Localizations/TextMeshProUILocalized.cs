@@ -11,8 +11,6 @@ namespace _Project.Scripts.Main.Localizations
         [SerializeField] private string _localizedTextKey;
 
         private TextMeshProUGUI _textMesh;
-        
-        [Inject] private LocalizationService _localization;
 
         private void Awake()
         {

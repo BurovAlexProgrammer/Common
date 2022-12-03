@@ -7,7 +7,7 @@ namespace _Project.Scripts.Main.Localizations
 {
     public abstract class LocalizedTextComponent : MonoBehaviour
     {
-        [Inject] private LocalizationService _localization;
+        [Inject] protected LocalizationService _localization;
 
         private async void Start()
         {
