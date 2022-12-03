@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ae62e8a1e24e8ab200ec2a176cd959, type: 3}
   m_Name: LocalizationSettings
   m_EditorClassIdentifier: 
-  _localizationStorePath: 
+  _localeStoreFolder: {fileID: 102900000, guid: 7b0e00264f0d4df418a2dd0b4a887fb8,
+    type: 3}
+  _originalLocales: 0

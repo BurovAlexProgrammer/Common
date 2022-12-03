@@ -1,5 +1,5 @@
 en_EN
-{name: 'English'}
+{name: 'en-EN', fullName: 'English'}
 fillFormat: key;description;original;translate;
 test;test key;test;test2;
 test2;;;;

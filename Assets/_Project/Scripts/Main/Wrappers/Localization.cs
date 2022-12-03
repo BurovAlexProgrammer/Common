@@ -64,6 +64,7 @@ namespace _Project.Scripts.Main.Wrappers
     public class LocaleInfo
     {
         public string name;
+        public string fullName;
     }
 
     public enum Locales

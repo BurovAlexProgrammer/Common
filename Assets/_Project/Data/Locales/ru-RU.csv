@@ -1,5 +1,5 @@
 ru_RU
-{name: 'Russian'}
+{name: 'ru-RU', fullName: 'Russian'}
 fillFormat: key;description;original;translate;
 test;test key;test;тест;
 test2;;;;
