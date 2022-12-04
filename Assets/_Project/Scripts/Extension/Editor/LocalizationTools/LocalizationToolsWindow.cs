@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.Main.Localizations;
-using _Project.Scripts.Main.Wrappers;
 using UnityEditor;
 using UnityEngine;
 
-namespace _Project.Scripts.Extension.Editor
+namespace _Project.Scripts.Extension.Editor.LocalizationTools
 {
     public class LocalizationToolsWindow : EditorWindow
     {
@@ -14,6 +13,9 @@ namespace _Project.Scripts.Extension.Editor
         private Dictionary<Locales, Localization> _localizations;
         private Localization _originalLocalization;
         private string[] _localeNames;
+        
+        private Vector2 _tableScrollPos;
+        private Rect _tableScrollViewRect;
 
         [MenuItem ("Tools/Localization Editor")]
         public static void ShowWindow()
@@ -28,8 +30,8 @@ namespace _Project.Scripts.Extension.Editor
         private void Init()
         {
             Debug.Log("Init");
-            _localizations = LocalizationTools.Instance.Localizations;
-            _originalLocalization = LocalizationTools.Instance.OriginalLocalization;
+            _localizations = Editor.LocalizationTools.LocalizationTools.Instance.Localizations;
+            _originalLocalization = Editor.LocalizationTools.LocalizationTools.Instance.OriginalLocalization;
             _localeNames = _localizations.Values.Select(x => x.Info.name).ToArray();
             _selectedLocalizationInstance = new Localization(_originalLocalization);
         }
@@ -55,6 +57,47 @@ namespace _Project.Scripts.Extension.Editor
             
             GUILayout.Space(8);
             DrawLocalizationInfo();
+            GUILayout.Space(8);
+            DrawLocalizationTable();
+        }
+
+        private void DrawLocalizationTable()
+        {
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("#",GUILayout.Width(32));
+            GUILayout.Label("Key",GUILayout.Width(200));
+            GUILayout.Label("Description",GUILayout.Width(200));
+            GUILayout.Label("Original",GUILayout.Width(300));
+            GUILayout.Label("Text");
+            GUILayout.EndHorizontal();
+            
+            EditorGUILayout.Separator();
+            
+            _tableScrollPos = GUILayout.BeginScrollView(_tableScrollPos, false, true);
+            
+            var number = 0;
+            foreach (var (key, localizedItem) in _selectedLocalizationInstance.LocalizedItems)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label((++number).ToString(), GUILayout.Width(32));
+                
+                EditorGUIUtility.labelWidth = 32;
+                localizedItem.Key = GUILayout.TextField(localizedItem.Key, GUILayout.Width(200));
+                
+                EditorGUIUtility.labelWidth = 64;
+                localizedItem.Description = GUILayout.TextField(localizedItem.Description, GUILayout.Width(200));
+                
+                EditorGUIUtility.labelWidth = 50;
+                localizedItem.Original = GUILayout.TextField(localizedItem.Original, GUILayout.Width(300));
+                
+                EditorGUIUtility.labelWidth = 60;
+                localizedItem.Text = GUILayout.TextField( localizedItem.Text);
+                
+                GUILayout.EndHorizontal();
+            }
+
+            GUILayout.EndScrollView();
         }
 
         private void DrawLocalizationInfo()
