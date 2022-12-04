@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

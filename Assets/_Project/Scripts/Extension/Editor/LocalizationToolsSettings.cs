@@ -1,3 +1,4 @@
+using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Wrappers;
 using UnityEditor;
 using UnityEditorInternal;

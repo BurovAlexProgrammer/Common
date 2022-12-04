@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Wrappers;
 using UnityEditor;
 using UnityEngine;

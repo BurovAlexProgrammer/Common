@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace _Project.Scripts.Main.Wrappers
+namespace _Project.Scripts.Main.Localizations
 {
     public class Localization
     {
         private Locales _locale;
-        private LocaleInfo _info;
+        private LocalizationInfo _info;
         private Dictionary<string, LocalizedItem> _localizedItems;
         private string _filePathInEditor;
 
         public Locales Locale => _locale;
-        public LocaleInfo Info => _info;
+        public LocalizationInfo Info => _info;
         public Dictionary<string, LocalizedItem> LocalizedItems => _localizedItems;
         public string FilePathInEditor => _filePathInEditor;
 
@@ -23,13 +23,13 @@ namespace _Project.Scripts.Main.Wrappers
             _locale = other._locale;
             _localizedItems = other._localizedItems;
             _filePathInEditor = other._filePathInEditor;
-            _info = new LocaleInfo(other.Info);
+            _info = new LocalizationInfo(other.Info);
         }
         
         public Localization(string locale, string infoJson, string[] lines, string filePathInEditor)
         {
             _locale = ParseLocale(locale);
-            _info = JsonConvert.DeserializeObject<LocaleInfo>(infoJson);
+            _info = JsonConvert.DeserializeObject<LocalizationInfo>(infoJson);
             _localizedItems = new Dictionary<string, LocalizedItem>();
             _filePathInEditor = filePathInEditor;
             
@@ -59,35 +59,6 @@ namespace _Project.Scripts.Main.Wrappers
         private Locales ParseLocale(string localeLine)
         {
             return Enum.Parse<Locales>(localeLine, true);
-        }
-    }
-
-    public class LocalizedItem
-    {
-        public string Key;
-        public string Description;
-        public string Original;
-        public string Text;
-    }
-
-    public class LocaleInfo: IEquatable<LocaleInfo>
-    {
-        public string name;
-        public string fullName;
-        
-        public LocaleInfo() {}
-
-        public LocaleInfo(LocaleInfo other)
-        {
-            if (other == null) return;
-            name = other.name;
-            fullName = other.fullName;
-        }
-
-        public bool Equals(LocaleInfo other)
-        {
-            if (other == null) return false;
-            return name == other.name && fullName == other.fullName;
         }
     }
 

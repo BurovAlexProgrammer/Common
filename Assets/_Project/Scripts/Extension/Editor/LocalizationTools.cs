@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Wrappers;
 
 namespace _Project.Scripts.Extension.Editor
