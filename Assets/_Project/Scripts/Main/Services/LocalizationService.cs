@@ -90,7 +90,7 @@ namespace _Project.Scripts.Main.Services
                     {
                         Debug.LogWarning($"The key is not in locale '{localization.Locale.ToString()}'. Adding new key..");
                         var fullPath = Path.Combine(Application.dataPath, "../") +
-                                       localization.FilePathInEditor.Replace("Assets", "");
+                                       localization.FilePathInEditor;
                         using var streamWriter = File.AppendText(fullPath);
                         streamWriter.WriteLine($"{newKey};;;key.{newKey};");
                         var newLocalizedItem = new LocalizedItem() { Key = newKey, Text = $"key^{newKey}" };

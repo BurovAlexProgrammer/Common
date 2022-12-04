@@ -16,5 +16,14 @@ namespace _Project.Scripts.Extension
             if (float.IsNaN(y) == false) vector3.y = y;
             if (float.IsNaN(z) == false) vector3.z = z;
         }
+
+        public static Color Set(this Color color, float r = float.NaN, float g= float.NaN, float b = float.NaN, float a= float.NaN)
+        {
+            if (float.IsNaN(r) == false) color.r = r;
+            if (float.IsNaN(g) == false) color.g = g;
+            if (float.IsNaN(b) == false) color.b = b;
+            if (float.IsNaN(a) == false) color.a = a;
+            return color;
+        }
     }
 }

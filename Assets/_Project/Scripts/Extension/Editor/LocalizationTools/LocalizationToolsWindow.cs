@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.Main.Localizations;
@@ -17,6 +18,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         private Vector2 _tableScrollPos;
         private Rect _tableScrollViewRect;
         private bool _selectedOriginal;
+        private string _newKeyName;
 
         [MenuItem ("Tools/Localization Editor")]
         public static void ShowWindow()
@@ -26,6 +28,11 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             window.Focus();
             window.Init();
             window.Show();
+        }
+
+        private void OnEnable()
+        {
+            Init();
         }
 
         private void Init()
@@ -58,10 +65,36 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             
             if (GUILayout.Button("Init")) Init();
             
+            GUILayout.BeginHorizontal();
+            _newKeyName = GUILayout.TextField(_newKeyName, GUILayout.Width(200));
+            if (GUILayout.Button("New Key")) AddNewKey();
+            if (GUILayout.Button("Save")) Save();
+            if (GUILayout.Button("Save")) Reset();
+            GUILayout.EndHorizontal();
+            
             GUILayout.Space(8);
             DrawLocalizationInfo();
             GUILayout.Space(8);
             DrawLocalizationTable();
+        }
+
+        private void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddNewKey()
+        {
+            if (string.IsNullOrEmpty(_newKeyName))
+                throw new Exception("Localization Key cannot be empty.");
+            if (_selectedLocalizationInstance.LocalizedItems.ContainsKey(_newKeyName))
+                throw new Exception("Localization Key already exist.");
+            _selectedLocalizationInstance.LocalizedItems.Add(_newKeyName, new LocalizedItem {Key = _newKeyName});
         }
 
         private void DrawLocalizationTable()
@@ -118,7 +151,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         {
             var info = _selectedLocalizationInstance.Info;
             GUI.changed = false;
-            GUILayout.Label("Info: ", GUILayout.ExpandWidth(false));
+            GUILayout.Label("Info ", GUILayout.ExpandWidth(false));
             GUILayout.BeginHorizontal();
                 EditorGUIUtility.labelWidth = 40;
                 info.name = EditorGUILayout.TextField("Name", info.name, textFieldOptions);
