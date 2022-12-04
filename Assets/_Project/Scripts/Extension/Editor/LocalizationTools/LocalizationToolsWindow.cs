@@ -16,6 +16,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         
         private Vector2 _tableScrollPos;
         private Rect _tableScrollViewRect;
+        private bool _selectedOriginal;
 
         [MenuItem ("Tools/Localization Editor")]
         public static void ShowWindow()
@@ -30,10 +31,12 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         private void Init()
         {
             Debug.Log("Init");
-            _localizations = Editor.LocalizationTools.LocalizationTools.Instance.Localizations;
-            _originalLocalization = Editor.LocalizationTools.LocalizationTools.Instance.OriginalLocalization;
+            _localizations = LocalizationTools.Instance.Localizations;
+            _originalLocalization = LocalizationTools.Instance.OriginalLocalization;
             _localeNames = _localizations.Values.Select(x => x.Info.name).ToArray();
             _selectedLocalizationInstance = new Localization(_originalLocalization);
+            _selectedOriginal = true;
+            MarkOriginalTab();
         }
 
         private void OnGUI()
@@ -65,39 +68,50 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         {
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label("#",GUILayout.Width(32));
-            GUILayout.Label("Key",GUILayout.Width(200));
-            GUILayout.Label("Description",GUILayout.Width(200));
-            GUILayout.Label("Original",GUILayout.Width(300));
-            GUILayout.Label("Text");
+                GUILayout.Label("#",GUILayout.Width(32));
+                GUILayout.Label("Key",GUILayout.Width(200));
+                GUILayout.Label("Description",GUILayout.Width(200));
+                GUILayout.Label("Original",GUILayout.Width(300));
+                if (!_selectedOriginal)
+                {
+                    GUILayout.Label("Text");
+                }
             GUILayout.EndHorizontal();
             
             EditorGUILayout.Separator();
             
             _tableScrollPos = GUILayout.BeginScrollView(_tableScrollPos, false, true);
             
-            var number = 0;
-            foreach (var (key, localizedItem) in _selectedLocalizationInstance.LocalizedItems)
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label((++number).ToString(), GUILayout.Width(32));
-                
-                EditorGUIUtility.labelWidth = 32;
-                localizedItem.Key = GUILayout.TextField(localizedItem.Key, GUILayout.Width(200));
-                
-                EditorGUIUtility.labelWidth = 64;
-                localizedItem.Description = GUILayout.TextField(localizedItem.Description, GUILayout.Width(200));
-                
-                EditorGUIUtility.labelWidth = 50;
-                localizedItem.Original = GUILayout.TextField(localizedItem.Original, GUILayout.Width(300));
-                
-                EditorGUIUtility.labelWidth = 60;
-                localizedItem.Text = GUILayout.TextField( localizedItem.Text);
-                
-                GUILayout.EndHorizontal();
-            }
+                var number = 0;
+                foreach (var (key, localizedItem) in _selectedLocalizationInstance.LocalizedItems)
+                {
+                    GUILayout.BeginHorizontal();
+                        GUILayout.Label((++number).ToString(), GUILayout.Width(32));
+                        EditorGUIUtility.labelWidth = 32;
+                        localizedItem.Key = GUILayout.TextField(localizedItem.Key, GUILayout.Width(200));
+                        EditorGUIUtility.labelWidth = 64;
+                        localizedItem.Description = GUILayout.TextField(localizedItem.Description, GUILayout.Width(200));
+                        EditorGUIUtility.labelWidth = 50;
+                        localizedItem.Original = GUILayout.TextField(localizedItem.Original,  _selectedOriginal ? GUILayout.ExpandWidth(true) : GUILayout.Width(300));
+
+                        if (!_selectedOriginal)
+                        {
+                            EditorGUIUtility.labelWidth = 60;
+                            localizedItem.Text = GUILayout.TextField(localizedItem.Text);
+                        }
+                        
+                    GUILayout.EndHorizontal();
+                }
 
             GUILayout.EndScrollView();
+        }
+
+        private void MarkOriginalTab()
+        {
+            for (var i = 0; i < _localeNames.Length; i++)
+            {
+                if (_localeNames[i] == _originalLocalization.Info.name) _localeNames[i] += " *";
+            }
         }
 
         private void DrawLocalizationInfo()
@@ -122,6 +136,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             _selectedLocaleIndex = newIndex;
             var selectedLocalization = _localizations.Where((x, i) => i == newIndex).Single().Value;
             _selectedLocalizationInstance = new Localization(selectedLocalization);
+            _selectedOriginal = selectedLocalization.Info.name == _originalLocalization.Info.name;
         }
 
         private GUILayoutOption[] textFieldOptions = {
