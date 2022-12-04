@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using _Project.Scripts.Main.Wrappers;
 
 namespace _Project.Scripts.Extension.Editor
@@ -10,19 +11,20 @@ namespace _Project.Scripts.Extension.Editor
         private static LocalizationTools _instance;
         private static LocalizationToolsSettings _settings;
         private Dictionary<Locales, Localization> _localizations;
-
+        private Localization _originalLocalization;
         public static LocalizationTools Instance => _instance ?? new LocalizationTools();
         public Dictionary<Locales, Localization> Localizations => _localizations;
+        public Localization OriginalLocalization => _originalLocalization;
 
 
         private LocalizationTools()
         {
             _localizations = new Dictionary<Locales, Localization>();
             _settings = Common.LoadSingleAsset<LocalizationToolsSettings>();
-
             if (_settings == null) throw new Exception("LocalizationToolsSettings asset not found.");
             
             LoadLocalizations();
+            _originalLocalization = _localizations.Single(x => x.Key == _settings.OriginalLocale).Value;
         }
 
         private void LoadLocalizations()

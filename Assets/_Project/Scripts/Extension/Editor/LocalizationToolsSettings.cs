@@ -9,9 +9,9 @@ namespace _Project.Scripts.Extension.Editor
     public class LocalizationToolsSettings : ScriptableObject
     {
         [SerializeField] private DefaultAsset _localeStoreFolder;
-        [SerializeField] private Locales _originalLocales;
+        [SerializeField] private Locales _originalLocale;
 
-        public Locales OriginalLocales => _originalLocales;
+        public Locales OriginalLocale => _originalLocale;
 
         public string LocalizationStorePath => _localeStoreFolder == null ? null : AssetDatabase.GetAssetPath(_localeStoreFolder);
     }

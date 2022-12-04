@@ -16,7 +16,16 @@ namespace _Project.Scripts.Main.Wrappers
         public Dictionary<string, LocalizedItem> LocalizedItems => _localizedItems;
         public string FilePathInEditor => _filePathInEditor;
 
+        public Localization() {}
 
+        public Localization(Localization other)
+        {
+            _locale = other._locale;
+            _localizedItems = other._localizedItems;
+            _filePathInEditor = other._filePathInEditor;
+            _info = new LocaleInfo(other.Info);
+        }
+        
         public Localization(string locale, string infoJson, string[] lines, string filePathInEditor)
         {
             _locale = ParseLocale(locale);
@@ -61,10 +70,25 @@ namespace _Project.Scripts.Main.Wrappers
         public string Text;
     }
 
-    public class LocaleInfo
+    public class LocaleInfo: IEquatable<LocaleInfo>
     {
         public string name;
         public string fullName;
+        
+        public LocaleInfo() {}
+
+        public LocaleInfo(LocaleInfo other)
+        {
+            if (other == null) return;
+            name = other.name;
+            fullName = other.fullName;
+        }
+
+        public bool Equals(LocaleInfo other)
+        {
+            if (other == null) return false;
+            return name == other.name && fullName == other.fullName;
+        }
     }
 
     public enum Locales
