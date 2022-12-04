@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using _Project.Scripts.Main.Localizations;
+using UnityEngine;
+using Newtonsoft.Json;
 
 namespace _Project.Scripts.Extension.Editor.LocalizationTools
 {
@@ -17,6 +19,46 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         public Localization OriginalLocalization => _originalLocalization;
 
 
+        public void AddNewKey(string newKey)
+        {
+            var filePaths = Directory.GetFiles(_settings.LocalizationStorePath, "*.csv");
+            
+            foreach (var (key, localization) in _localizations)
+            {
+                if (localization.LocalizedItems.ContainsKey(newKey))
+                {
+                    Debug.LogError($"Localization Key already exist in '{localization.Info.name}'. Skipped to add.");
+                    continue;
+                }
+
+                using var streamWriter = File.AppendText(localization.FilePathInEditor);
+                streamWriter.WriteLine($"{newKey};;;key.{newKey};");
+                var newLocalizedItem = new LocalizedItem() { Key = newKey, Text = $"key^{newKey}" };
+                localization.LocalizedItems.Add(newKey, newLocalizedItem);
+            }
+        }
+        
+        public void SaveLocalization(Localization localizationInstance, bool original)
+        {
+            var fileContentLines = new List<string>
+            {
+                Enum.GetName(typeof(Locales), localizationInstance.Locale),
+                JsonConvert.SerializeObject(localizationInstance.Info, Formatting.None),
+                localizationInstance.Hint,
+            };
+            
+            foreach (var (key, localizedItem) in localizationInstance.LocalizedItems)
+            {
+                localizedItem.Text = original ? localizedItem.Original : localizedItem.Text;
+                fileContentLines.Add($"{key};{localizedItem.Description};{localizedItem.Original};{localizedItem.Text}");
+            }
+
+            var fileContent = String.Join(Environment.NewLine, fileContentLines.ToArray());
+            var filePath = localizationInstance.FilePathInEditor;
+            File.WriteAllText(filePath, fileContent);
+            //TODO check result!!
+        }
+        
         private LocalizationTools()
         {
             _localizations = new Dictionary<Locales, Localization>();
@@ -51,7 +93,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
                 itemList.Add(lines[i]);
             }
 
-            return new Localization(locale, formatInfoMaybeJson, itemList.ToArray(), filePath);
+            return new Localization(locale, hint, formatInfoMaybeJson, itemList.ToArray(), filePath);
         }
     }
 }

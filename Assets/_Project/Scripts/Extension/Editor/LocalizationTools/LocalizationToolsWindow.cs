@@ -69,7 +69,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             _newKeyName = GUILayout.TextField(_newKeyName, GUILayout.Width(200));
             if (GUILayout.Button("New Key")) AddNewKey();
             if (GUILayout.Button("Save")) Save();
-            if (GUILayout.Button("Save")) Reset();
+            if (GUILayout.Button("Reset")) Reset();
             GUILayout.EndHorizontal();
             
             GUILayout.Space(8);
@@ -80,12 +80,14 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
 
         private void Reset()
         {
-            throw new NotImplementedException();
+            Init();
         }
 
         private void Save()
         {
-            throw new NotImplementedException();
+            LocalizationTools.Instance.SaveLocalization(_selectedLocalizationInstance, _selectedOriginal);
+            Debug.Log($"Localization {_selectedLocalizationInstance.Info.name} saved successfully.");
+            Init();
         }
 
         private void AddNewKey()
@@ -94,6 +96,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
                 throw new Exception("Localization Key cannot be empty.");
             if (_selectedLocalizationInstance.LocalizedItems.ContainsKey(_newKeyName))
                 throw new Exception("Localization Key already exist.");
+            LocalizationTools.Instance.AddNewKey(_newKeyName);
             _selectedLocalizationInstance.LocalizedItems.Add(_newKeyName, new LocalizedItem {Key = _newKeyName});
         }
 

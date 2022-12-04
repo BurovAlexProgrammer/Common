@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Localizations;
-using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -19,8 +18,6 @@ namespace _Project.Scripts.Main.Services
         private Localization _currentLocalization;
         private bool _isLoaded;
 
-        private const Locales OriginalLocale = Locales.en_EN;
-
         public bool IsLoaded => _isLoaded;
         
         public async void Init()
@@ -31,6 +28,7 @@ namespace _Project.Scripts.Main.Services
             
             foreach (var resourceLocation in resourceLocations)
             {
+                if (resourceLocation.ToString().Contains(".csv") == false) continue;
                 aoHandles.Add(Addressables.LoadAssetAsync<TextAsset>(resourceLocation));
             }
 
@@ -39,8 +37,8 @@ namespace _Project.Scripts.Main.Services
             for (var i = 0; i < aoHandles.Count; i++)
             {
                 var localeText = aoHandles[i].Result;
-                var filePath = resourceLocations[i];
-                var localization = LoadLocaleFile(localeText, filePath.ToString());
+                var filePath = resourceLocations[i].ToString();
+                var localization = LoadLocaleFile(localeText, filePath);
                 _localizations.Add(localization.Locale, localization);
             }
 
@@ -64,7 +62,7 @@ namespace _Project.Scripts.Main.Services
                 itemList.Add(lines[i]);
             }
 
-            return new Localization(locale, formatInfoMaybeJson, itemList.ToArray(), filePath);
+            return new Localization(locale, hint, formatInfoMaybeJson, itemList.ToArray(), filePath);
         }
         
         public string GetLocalizedText(string key)
@@ -79,7 +77,6 @@ namespace _Project.Scripts.Main.Services
 
         private void AddNewKeyToDictionary(string newKey)
         {
-            //TODO record to files
             if (Application.isEditor)
             {
                 Debug.LogError($"Key '{newKey}' not in current locale '{_currentLocale.ToString()}'.");

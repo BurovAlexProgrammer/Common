@@ -8,6 +8,7 @@ namespace _Project.Scripts.Main.Localizations
     {
         private Locales _locale;
         private LocalizationInfo _info;
+        private string _hint;
         private Dictionary<string, LocalizedItem> _localizedItems;
         private string _filePathInEditor;
 
@@ -15,6 +16,7 @@ namespace _Project.Scripts.Main.Localizations
         public LocalizationInfo Info => _info;
         public Dictionary<string, LocalizedItem> LocalizedItems => _localizedItems;
         public string FilePathInEditor => _filePathInEditor;
+        public string Hint => _hint;
 
         public Localization() {}
 
@@ -23,10 +25,11 @@ namespace _Project.Scripts.Main.Localizations
             _locale = other._locale;
             _localizedItems = other._localizedItems;
             _filePathInEditor = other._filePathInEditor;
+            _hint = other._hint;
             _info = new LocalizationInfo(other.Info);
         }
         
-        public Localization(string locale, string infoJson, string[] lines, string filePathInEditor)
+        public Localization(string locale, string hint, string infoJson, string[] lines, string filePathInEditor)
         {
             _locale = ParseLocale(locale);
             _info = JsonConvert.DeserializeObject<LocalizationInfo>(infoJson);
