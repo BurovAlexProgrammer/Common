@@ -90,7 +90,7 @@ namespace _Project.Scripts.Main.Services
                                        localization.FilePathInEditor;
                         using var streamWriter = File.AppendText(fullPath);
                         streamWriter.WriteLine($"{newKey};;;key.{newKey};");
-                        var newLocalizedItem = new LocalizedItem() { Key = newKey, Text = $"key^{newKey}" };
+                        var newLocalizedItem = new LocalizedItem { Key = newKey, Text = $"key^{newKey}" };
                         localization.LocalizedItems.Add(newKey, newLocalizedItem);
                     }
                 }

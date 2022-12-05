@@ -21,8 +21,6 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
 
         public void AddNewKey(string newKey)
         {
-            var filePaths = Directory.GetFiles(_settings.LocalizationStorePath, "*.csv");
-            
             foreach (var (key, localization) in _localizations)
             {
                 if (localization.LocalizedItems.ContainsKey(newKey))
@@ -38,7 +36,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             }
         }
         
-        public void SaveLocalization(Localization localizationInstance, bool original)
+        public void SaveLocalization(Localization localizationInstance, bool original = false)
         {
             var fileContentLines = new List<string>
             {
@@ -56,7 +54,29 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             var fileContent = String.Join(Environment.NewLine, fileContentLines.ToArray());
             var filePath = localizationInstance.FilePathInEditor;
             File.WriteAllText(filePath, fileContent);
-            //TODO check result!!
+
+            if (original)
+            {
+                ReloadOriginalLocalization();
+                UpdateAllOriginals();
+            }
+        }
+
+        private void UpdateAllOriginals()
+        {
+            foreach (var (key, localization) in _localizations)
+            {
+                if (localization.Locale == _originalLocalization.Locale) continue;
+
+                foreach (var (itemKey, localizedItem) in localization.LocalizedItems)
+                {
+                    if (_originalLocalization.LocalizedItems.ContainsKey(itemKey) == false) continue;
+                    localizedItem.Original = _originalLocalization.LocalizedItems[itemKey].Original;
+                }
+                
+                SaveLocalization(localization);
+                Debug.Log($"Originals for {localization.Info.name} updated.");
+            }
         }
         
         private LocalizationTools()
@@ -67,6 +87,13 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             
             LoadLocalizations();
             _originalLocalization = _localizations.Single(x => x.Key == _settings.OriginalLocale).Value;
+        }
+
+        private void ReloadOriginalLocalization()
+        {
+            var filePath = _originalLocalization.FilePathInEditor;
+            var fileLines = File.ReadAllLines(filePath);
+            _originalLocalization = Parse(fileLines, filePath); 
         }
 
         private void LoadLocalizations()

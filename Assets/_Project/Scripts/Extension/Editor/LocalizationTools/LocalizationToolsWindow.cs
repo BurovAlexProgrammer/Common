@@ -4,6 +4,7 @@ using System.Linq;
 using _Project.Scripts.Main.Localizations;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Project.Scripts.Extension.Editor.LocalizationTools
 {
@@ -35,6 +36,12 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             Init();
         }
 
+        private void OnEnterPress()
+        {
+            GUI.FocusControl(null);
+            Repaint();
+        }
+
         private void Init()
         {
             Debug.Log("Init");
@@ -49,6 +56,13 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         private void OnGUI()
         {
             if (_localeNames.Length == 0) Init();
+            
+            Event e = Event.current;
+
+            if (e.type == EventType.KeyDown && (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter))
+            {
+                OnEnterPress();
+            }
 
             GUILayout.ExpandWidth(false);
             GUILayout.Space(10);
@@ -86,7 +100,6 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         private void Save()
         {
             LocalizationTools.Instance.SaveLocalization(_selectedLocalizationInstance, _selectedOriginal);
-            Debug.Log($"Localization {_selectedLocalizationInstance.Info.name} saved successfully.");
             Init();
         }
 
