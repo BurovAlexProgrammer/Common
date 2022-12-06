@@ -25,7 +25,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             {
                 if (localization.LocalizedItems.ContainsKey(newKey))
                 {
-                    Debug.LogError($"Localization Key already exist in '{localization.Info.name}'. Skipped to add.");
+                    Debug.LogWarning($"Localization Key already exist in '{localization.Info.name}'. Skipped to add.");
                     continue;
                 }
 
@@ -33,6 +33,19 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
                 streamWriter.WriteLine($"{newKey};;;key.{newKey};");
                 var newLocalizedItem = new LocalizedItem() { Key = newKey, Text = $"key^{newKey}" };
                 localization.LocalizedItems.Add(newKey, newLocalizedItem);
+            }
+        }
+
+        public void RemoveKey(string removeKey)
+        {
+            foreach (var (key, localization) in _localizations)
+            {
+                if (localization.LocalizedItems.ContainsKey(removeKey) == false) continue;
+
+                localization.LocalizedItems.Remove(removeKey);
+                
+                SaveLocalization(localization);
+                Debug.Log($"Key '{removeKey}' removed for localization '{localization.Info.name}'.");
             }
         }
         

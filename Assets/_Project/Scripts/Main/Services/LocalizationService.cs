@@ -85,7 +85,7 @@ namespace _Project.Scripts.Main.Services
                 {
                     if (localization.LocalizedItems.ContainsKey(newKey) == false)
                     {
-                        Debug.LogWarning($"The key is not in locale '{localization.Locale.ToString()}'. Adding new key..");
+                        Debug.LogWarning($"Key '{newKey}' is not in locale '{localization.Locale.ToString()}'. Adding new key..");
                         var fullPath = Path.Combine(Application.dataPath, "../") +
                                        localization.FilePathInEditor;
                         using var streamWriter = File.AppendText(fullPath);
