@@ -226,8 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16501884563444e58fe8f8a226677bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 0}
-  _gameObject: {fileID: 0}
   _canvasGroup: {fileID: 50232338}
 --- !u!1001 &63251080
 PrefabInstance:
@@ -453,8 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16501884563444e58fe8f8a226677bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 0}
-  _gameObject: {fileID: 0}
   _canvasGroup: {fileID: 70671531}
 --- !u!114 &71047596 stripped
 MonoBehaviour:
@@ -587,6 +583,11 @@ PrefabInstance:
       propertyPath: m_text
       value: New Game
       objectReference: {fileID: 0}
+    - target: {fileID: 8845902910433310078, guid: 22c8a9cf28b2c40479d42586c98e63aa,
+        type: 3}
+      propertyPath: _localizedTextKey
+      value: NewGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c8a9cf28b2c40479d42586c98e63aa, type: 3}
 --- !u!224 &74459613 stripped
@@ -620,7 +621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &130390875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -708,8 +709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16501884563444e58fe8f8a226677bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 0}
-  _gameObject: {fileID: 0}
   _canvasGroup: {fileID: 130390876}
 --- !u!1 &262624616
 GameObject:
@@ -1438,6 +1437,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1577903385}
     m_Modifications:
+    - target: {fileID: 536971088204669263, guid: 4344f7be00bc31441afe26070fb4913d,
+        type: 3}
+      propertyPath: _localizedTextKey
+      value: VideoSettings
+      objectReference: {fileID: 0}
     - target: {fileID: 782660291704432408, guid: 4344f7be00bc31441afe26070fb4913d,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1551,7 +1555,7 @@ PrefabInstance:
     - target: {fileID: 782660291704432415, guid: 4344f7be00bc31441afe26070fb4913d,
         type: 3}
       propertyPath: m_Name
-      value: Text Title2 Unfilled
+      value: Video Settings Title
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4344f7be00bc31441afe26070fb4913d, type: 3}
@@ -2538,6 +2542,11 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 8845902910433310078, guid: 22c8a9cf28b2c40479d42586c98e63aa,
+        type: 3}
+      propertyPath: _localizedTextKey
+      value: QuitGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c8a9cf28b2c40479d42586c98e63aa, type: 3}
 --- !u!224 &1635575378 stripped
@@ -3019,6 +3028,11 @@ PrefabInstance:
       propertyPath: m_text
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 8845902910433310078, guid: 22c8a9cf28b2c40479d42586c98e63aa,
+        type: 3}
+      propertyPath: _localizedTextKey
+      value: Settings
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c8a9cf28b2c40479d42586c98e63aa, type: 3}
 --- !u!114 &2665018198000265881
@@ -3333,6 +3347,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9217181648464643418, guid: cb6b6d4b66cde204296e0cb5d30c5731,
+        type: 3}
+      propertyPath: _localizedTextKey
+      value: VideoSetting.AntiAliasing
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb6b6d4b66cde204296e0cb5d30c5731, type: 3}
 --- !u!114 &8690176534449124161 stripped
@@ -3379,6 +3398,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16501884563444e58fe8f8a226677bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 0}
-  _gameObject: {fileID: 0}
   _canvasGroup: {fileID: 428575551348867004}

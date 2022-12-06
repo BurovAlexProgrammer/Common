@@ -61,10 +61,10 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             foreach (var (key, localizedItem) in localizationInstance.LocalizedItems)
             {
                 localizedItem.Text = original ? localizedItem.Original : localizedItem.Text;
-                fileContentLines.Add($"{key};{localizedItem.Description};{localizedItem.Original};{localizedItem.Text}");
+                fileContentLines.Add($"{key};{localizedItem.Description};{localizedItem.Original};{localizedItem.Text};");
             }
 
-            var fileContent = String.Join(Environment.NewLine, fileContentLines.ToArray());
+            var fileContent = String.Join(Environment.NewLine, fileContentLines.ToArray()) + "\n";
             var filePath = localizationInstance.FilePathInEditor;
             File.WriteAllText(filePath, fileContent);
 
