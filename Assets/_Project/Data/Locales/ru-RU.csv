@@ -1,5 +1,8 @@
 ru_RU
-{name: 'ru-RU', fullName: 'Russian'}
+{"name":"ru-RU","fullName":"Russian"}
 fillFormat: key;description;original;translate;
-test;test key;test;тест;
-test2;;;;
+VideoSettings;;Video Settings;Видео настройки;
+NewGame;;New Game;Новая игра;
+QuitGame;;Quit Game;Выход из игры;
+Settings;;Settings;Настройки;
+VideoSetting.AntiAliasing;;;key.VideoSetting.AntiAliasing;

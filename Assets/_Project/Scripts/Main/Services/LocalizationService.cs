@@ -8,20 +8,24 @@ using _Project.Scripts.Main.Localizations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Zenject;
 
 namespace _Project.Scripts.Main.Services
 {
     public class LocalizationService : MonoBehaviour
     {
-        [SerializeField] private Locales _currentLocale;
+        private Locales _currentLocale;
         private Dictionary<Locales, Localization> _localizations;
         private Localization _currentLocalization;
         private bool _isLoaded;
 
         public bool IsLoaded => _isLoaded;
+
+        [Inject] private SettingsService _settingsService;
         
         public async void Init()
         {
+            _currentLocale = _settingsService.GameSettings.CurrentLocale;
             _localizations = new Dictionary<Locales, Localization>();
             var aoHandles = new List<AsyncOperationHandle<TextAsset>>();
             var resourceLocations = Addressables.LoadResourceLocationsAsync("locales").WaitForCompletion();

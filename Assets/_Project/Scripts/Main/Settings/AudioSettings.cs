@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace _Project.Scripts.Settings
+namespace _Project.Scripts.Main.Settings
 {
-    [CreateAssetMenu(menuName = "Custom/Settings/Audio")]
+    [CreateAssetMenu(menuName = "Custom/Settings/Audio Settings")]
         public class AudioSettings : SettingsSO
         {
             public bool SoundEnabled;

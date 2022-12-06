@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.Scripts.Settings
+namespace _Project.Scripts.Main.Settings
 {
     public abstract class SettingsSO : ScriptableObject
     {

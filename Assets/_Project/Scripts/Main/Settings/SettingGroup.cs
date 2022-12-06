@@ -3,7 +3,6 @@ using System.IO;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Services;
 using _Project.Scripts.Main.Wrappers;
-using _Project.Scripts.Settings;
 using Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
@@ -63,7 +62,11 @@ namespace _Project.Scripts.Main.Settings
             {
                 var json = File.ReadAllText(_storedFilePath);
                 var storedData = JsonConvert.DeserializeObject<T>(json, new ScriptableObjectConverter<T>());
-                _saved.CopyDataFrom(storedData);
+                if (storedData == null)
+                {
+                    Debug.LogWarning($"Stored file '{_storedFilePath}' is corrupted. Default settings using instead.");
+                }
+                _saved.CopyDataFrom(storedData ?? _default);
             }
 
             _current ??= ScriptableObject.CreateInstance<T>();

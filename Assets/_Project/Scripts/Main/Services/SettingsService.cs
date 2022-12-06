@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using _Project.Scripts.Main.Settings;
 using UnityEngine;
-using AudioSettings = _Project.Scripts.Settings.AudioSettings;
+using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
 namespace _Project.Scripts.Main.Services
 {
@@ -9,18 +9,21 @@ namespace _Project.Scripts.Main.Services
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
-        
+        [SerializeField] private SettingGroup<GameSettings> _gameSettings;
+
         private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
         public AudioSettings Audio => _audioSettings.CurrentSettings;
+        public GameSettings GameSettings => _gameSettings.CurrentSettings;
 
         public void Init()
         {
             _settingList = new List<ISettingGroup>
             {
                 _audioSettings, 
-                _videoSettings
+                _videoSettings,
+                _gameSettings,
             };
 
             foreach (var settingGroup in _settingList)

@@ -19,6 +19,11 @@ namespace _Project.Scripts.Main.Localizations
 
         protected override void SetText()
         {
+            if (string.IsNullOrEmpty(_localizedTextKey))
+            {
+                _textMesh.text = "---NO KEY---";
+                return;
+            }
             _textMesh.text = _localization.GetLocalizedText(_localizedTextKey);
         }
     }

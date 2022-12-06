@@ -1,7 +1,6 @@
 using System;
 using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Services;
-using _Project.Scripts.Settings;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using Zenject;
@@ -10,7 +9,7 @@ using static UnityEngine.Rendering.PostProcessing.PostProcessLayer.Antialiasing;
 namespace _Project.Scripts.Main.Settings
 {
     [Serializable]
-    [CreateAssetMenu(menuName = "Custom/Settings/Video")]
+    [CreateAssetMenu(menuName = "Custom/Settings/Video Settings")]
     public class VideoSettings: SettingsSO
     {
         public bool PostProcessAntiAliasing;

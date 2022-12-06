@@ -1,5 +1,8 @@
 en_EN
-{name: 'en-EN', fullName: 'English'}
+{"name":"en-EN","fullName":"English"}
 fillFormat: key;description;original;translate;
-test;test key;test;test2;
-test2;;;;
+VideoSettings;;Video Settings;Video Settings;
+NewGame;;New Game;New Game;
+QuitGame;;Quit Game;Quit Game;
+Settings;;Settings;Settings;
+VideoSetting.AntiAliasing;;;key.VideoSetting.AntiAliasing;
