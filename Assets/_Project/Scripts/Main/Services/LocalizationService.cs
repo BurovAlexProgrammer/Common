@@ -25,11 +25,15 @@ namespace _Project.Scripts.Main.Services
             _localizations = new Dictionary<Locales, Localization>();
             var aoHandles = new List<AsyncOperationHandle<TextAsset>>();
             var resourceLocations = Addressables.LoadResourceLocationsAsync("locales").WaitForCompletion();
-            
-            foreach (var resourceLocation in resourceLocations)
+
+            for (var i = 0; i < resourceLocations.Count; i++)
             {
-                if (resourceLocation.ToString().Contains(".csv") == false) continue;
-                aoHandles.Add(Addressables.LoadAssetAsync<TextAsset>(resourceLocation));
+                if (resourceLocations[i].ToString().Contains(".csv") == false)
+                {
+                    resourceLocations.RemoveAt(i--);
+                    continue;
+                }
+                aoHandles.Add(Addressables.LoadAssetAsync<TextAsset>(resourceLocations[i]));
             }
 
             await Task.WhenAll(aoHandles.Select(x => x.Task).ToArray());
@@ -86,7 +90,7 @@ namespace _Project.Scripts.Main.Services
                     if (localization.LocalizedItems.ContainsKey(newKey) == false)
                     {
                         Debug.LogWarning($"Key '{newKey}' is not in locale '{localization.Locale.ToString()}'. Adding new key..");
-                        var fullPath = Path.Combine(Application.dataPath, "../") +
+                        var fullPath = Path.Combine(Application.dataPath, @"..\") +
                                        localization.FilePathInEditor;
                         using var streamWriter = File.AppendText(fullPath);
                         streamWriter.WriteLine($"{newKey};;;key.{newKey};");
