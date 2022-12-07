@@ -10,18 +10,17 @@ namespace _Project.Scripts.Main
 {
     public class GameStateMachine : MonoBehaviour
     {
-        private GameStates _activeState;
-        private SceneLoaderService _sceneLoader;
-
         public Action StateChanged;
+        
+        private GameStates _activeState;
+        
+        [Inject] private SceneLoaderService _sceneLoader;
 
         public GameStates ActiveState => _activeState;
 
-        [Inject]
-        public void Construct(SceneLoaderService sceneLoaderService)
+        public void Init()
         {
-            _sceneLoader = sceneLoaderService;
-            if (sceneLoaderService.InitialSceneEquals(Boot))
+            if (_sceneLoader.InitialSceneEquals(Boot))
             {
                 _ = EnterState(GameStates.Boot);
             }
@@ -78,6 +77,8 @@ namespace _Project.Scripts.Main
                     break;
                 case GameStates.GamePause:
                     break;
+                case GameStates.CustomSceneBoot:
+                    break;
                 default:
                     throw new Exception("GameManager: unknown state.");
             }
@@ -85,14 +86,14 @@ namespace _Project.Scripts.Main
 
         private async UniTask EnterStateBoot()
         {
-            _sceneLoader.Init();
+            _sceneLoader.ShowScene();
             await Wait(1f);
             SetState(GameStates.MainMenu);
         }
 
         private void EnterStateCustomBoot()
         {
-           _sceneLoader.Init();
+           _sceneLoader.ShowScene();
         }
 
         private async UniTask ExitStateBoot()

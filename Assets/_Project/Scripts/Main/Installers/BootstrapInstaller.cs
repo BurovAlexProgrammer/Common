@@ -14,7 +14,7 @@ namespace _Project.Scripts.Main.Installers
 
         private static ScreenService _screenService;
         public static ScreenService ScreenService => _screenService;
-        
+
         public override void InstallBindings()
         {
             InstallSceneLoaderService();
@@ -50,10 +50,11 @@ namespace _Project.Scripts.Main.Installers
 
         private void InstallSceneLoaderService()
         {
-            Container
+           Container
                 .Bind<SceneLoaderService>()
                 .FromComponentInNewPrefab(_sceneLoaderServicePrefab)
-                .AsSingle();
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallGameManagerService()
@@ -62,6 +63,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<GameManagerService>()
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
                 .AsSingle()
+                .OnInstantiated((ctx, instance) => (instance as GameManagerService).Init())
                 .NonLazy();
         }
         

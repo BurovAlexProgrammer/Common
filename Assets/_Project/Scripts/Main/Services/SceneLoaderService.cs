@@ -38,15 +38,8 @@ namespace _Project.Scripts.Main.Services
             var sceneName = GetScene(scene);
             LoadSceneAsync(sceneName).Forget();
         }
-
-        private async UniTask LoadSceneAsync(string scenePath)
-        {
-            await UniTask.WhenAll(HideScene(), PrepareScene(scenePath));
-            ActivatePreparedScene();
-            ShowScene();
-        }
-
-        private void ShowScene()
+        
+        public void ShowScene()
         {
             _blackFrame.gameObject.SetActive(true);
             _blackFrame
@@ -54,6 +47,13 @@ namespace _Project.Scripts.Main.Services
                 .From(1f)
                 .SetEase(_fadeCurve)
                 .OnComplete(() => _blackFrame.gameObject.SetActive(false));
+        }
+
+        private async UniTask LoadSceneAsync(string scenePath)
+        {
+            await UniTask.WhenAll(HideScene(), PrepareScene(scenePath));
+            ActivatePreparedScene();
+            ShowScene();
         }
 
         public async UniTask HideScene()
@@ -94,6 +94,11 @@ namespace _Project.Scripts.Main.Services
 
         public bool InitialSceneEquals(Scenes scene)
         {
+            if (_initialScene.name == null)
+            {
+                _initialScene = SceneManager.GetActiveScene();
+            }
+            
             return GetSceneName(scene).Equals(_initialScene.name);
         }
 
