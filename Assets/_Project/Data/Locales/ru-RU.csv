@@ -17,3 +17,5 @@ WindowHeader.QuitGame;;Quit Game;Выход из игры;
 Sure?;;You Sure?;Уверен?;
 Yes;;Yes;Да;
 No;;No;Нет;
+GameSettings;;Game Settings;Игровые настройки;
+Language;;Language;Язык;
