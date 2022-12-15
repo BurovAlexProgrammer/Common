@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81af1a2947d77a408ffbb90fdade043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneLoaderServicePrefab: {fileID: -8511064090409798261, guid: 6f9576a56baeddd498533409e6c544ce,
+  _sceneLoaderServicePrefab: {fileID: 2140080599545235186, guid: 8b1d16969ef546d49b5285fe9f082cd3,
     type: 3}
   _screenServicePrefab: {fileID: 144474506516546969, guid: c3217b61733167c499178907a758f927,
     type: 3}
