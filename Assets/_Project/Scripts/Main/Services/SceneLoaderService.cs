@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Services
 {
-    public class SceneLoaderService : MonoBehaviour
+    public class SceneLoaderService : BaseService
     {
         [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;

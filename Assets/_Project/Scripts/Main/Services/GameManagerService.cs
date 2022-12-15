@@ -3,7 +3,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.Services
 {
-    public class GameManagerService : MonoBehaviour
+    public class GameManagerService : BaseService
     {
         [SerializeField] private GameStateMachine _gameStateMachine;
 

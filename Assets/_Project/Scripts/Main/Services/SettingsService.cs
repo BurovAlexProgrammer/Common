@@ -5,7 +5,7 @@ using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
 namespace _Project.Scripts.Main.Services
 {
-    public class SettingsService : MonoBehaviour
+    public class SettingsService : BaseService
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;

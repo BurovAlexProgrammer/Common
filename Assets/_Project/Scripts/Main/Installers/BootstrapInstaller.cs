@@ -1,6 +1,7 @@
 using _Project.Scripts.Main.Services;
 using UnityEngine;
 using Zenject;
+using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Installers
 {
@@ -11,9 +12,6 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private SettingsService _settingsServicePrefab;
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
         [SerializeField] private LocalizationService _localizationServicePrefab;
-
-        private static ScreenService _screenService;
-        public static ScreenService ScreenService => _screenService;
 
         public override void InstallBindings()
         {
@@ -44,7 +42,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<ScreenService>()
                 .FromComponentInNewPrefab(_screenServicePrefab)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => _screenService = (ScreenService)instance)
+                .OnInstantiated((ctx, instance) => SetService((ScreenService)instance))
                 .NonLazy();
         }
 

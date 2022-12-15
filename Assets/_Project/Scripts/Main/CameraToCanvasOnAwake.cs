@@ -7,19 +7,12 @@ public class CameraToCanvasOnAwake : MonoBehaviour
 {
     [SerializeField] private CameraTypes _camera;
 
-    private ScreenService _screenService;
+    [Inject] private ScreenService _screenService;
 
     private enum CameraTypes
     {
         MainCamera,
         UiCamera
-    }
-    
-    [Inject]
-    public void Construct(ScreenService screenService)
-    {
-        _screenService = screenService;
-
     }
 
     private void OnEnable()

@@ -29,8 +29,8 @@ namespace _Project.Scripts.Main.Settings
         
         public override void ApplySettings()
         {
-            var postProcessLayer = BootstrapInstaller.ScreenService.PostProcessLayer;   //Crutch instead of injection
-            var postProcessVolume = BootstrapInstaller.ScreenService.PostProcessVolume; //Crutch instead of injection
+            var postProcessLayer = Services.Services.ScreenService.PostProcessLayer;   //Crutch instead of injection
+            var postProcessVolume = Services.Services.ScreenService.PostProcessVolume; //Crutch instead of injection
             postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
             foreach (var effectSettings in postProcessVolume.profile.settings)
             {

@@ -3,7 +3,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace _Project.Scripts.Main.Services
 {
-    public class ScreenService : MonoBehaviour
+    public class ScreenService : BaseService
     {
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Camera _uiCamera;
