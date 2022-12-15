@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Localizations;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -19,6 +20,7 @@ namespace _Project.Scripts.Main.Services
         private Localization _currentLocalization;
         private bool _isLoaded;
 
+        public Dictionary<Locales, Localization> Localizations => _localizations;
         public bool IsLoaded => _isLoaded;
 
         [Inject] private SettingsService _settingsService;
@@ -55,6 +57,16 @@ namespace _Project.Scripts.Main.Services
 
             _currentLocalization = _localizations[_currentLocale];
             _isLoaded = true;
+        }
+
+        public async UniTask<Dictionary<Locales, Localization>> GetLocalizationsAsync()
+        {
+            while (!_isLoaded)
+            {
+                await UniTask.NextFrame();
+            }
+
+            return _localizations;
         }
 
         private Localization LoadLocaleFile(TextAsset textAsset, string filePath)

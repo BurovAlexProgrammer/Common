@@ -1793,8 +1793,8 @@ MonoBehaviour:
     Vignette: {fileID: 1044753040}
     AmbientOcclusion: {fileID: 71047596}
     DepthOfField: {fileID: 1726919604}
-  _gameSettingsViews:
-    Language: {fileID: 1802076044}
+  _gameSettingViews:
+    CurrentLanguage: {fileID: 1802076044}
 --- !u!114 &952032938
 MonoBehaviour:
   m_ObjectHideFlags: 0

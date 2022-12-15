@@ -7,15 +7,10 @@ namespace _Project.Scripts.Main.Menu
 {
     public class MenuSettingsController : MonoBehaviour
     {
-        private SettingsService _settings;
+        [Inject] private SettingsService _settings;
 
         public VideoSettings VideoSettings => _settings.Video;
-        
-        [Inject]
-        public void Construct(SettingsService settingsService)
-        {
-            _settings = settingsService;
-        }
+        public GameSettings GameSettings => _settings.GameSettings;
 
         public void Apply()
         {
