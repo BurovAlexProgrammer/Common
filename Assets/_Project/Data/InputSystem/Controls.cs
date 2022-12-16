@@ -44,6 +44,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InternalProfiler"",
+                    ""type"": ""Button"",
+                    ""id"": ""94b1831b-ba49-4c70-82bf-2a3a711e7c15"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,6 +231,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7ae546d-9fdb-491f-8baa-f20180cf2013"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InternalProfiler"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a17c004-ef9c-470c-a3f2-073d29d83188"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InternalProfiler"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -255,6 +286,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""InternalProfiler"",
+                    ""type"": ""Button"",
+                    ""id"": ""be84af53-0276-4196-9ba9-41242654649a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -466,6 +506,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bd162ca-8810-4a9e-a032-3a340231b8b3"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InternalProfiler"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27b8d936-ef50-4150-a895-4b7c0a529021"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""InternalProfiler"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -499,11 +561,13 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_InternalProfiler = m_Player.FindAction("InternalProfiler", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Back = m_Menu.FindAction("Back", throwIfNotFound: true);
         m_Menu_Enter = m_Menu.FindAction("Enter", throwIfNotFound: true);
         m_Menu_Move = m_Menu.FindAction("Move", throwIfNotFound: true);
+        m_Menu_InternalProfiler = m_Menu.FindAction("InternalProfiler", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -565,12 +629,14 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_InternalProfiler;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @InternalProfiler => m_Wrapper.m_Player_InternalProfiler;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -586,6 +652,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @InternalProfiler.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInternalProfiler;
+                @InternalProfiler.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInternalProfiler;
+                @InternalProfiler.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInternalProfiler;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -596,6 +665,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @InternalProfiler.started += instance.OnInternalProfiler;
+                @InternalProfiler.performed += instance.OnInternalProfiler;
+                @InternalProfiler.canceled += instance.OnInternalProfiler;
             }
         }
     }
@@ -607,6 +679,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Back;
     private readonly InputAction m_Menu_Enter;
     private readonly InputAction m_Menu_Move;
+    private readonly InputAction m_Menu_InternalProfiler;
     public struct MenuActions
     {
         private @Controls m_Wrapper;
@@ -614,6 +687,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Back => m_Wrapper.m_Menu_Back;
         public InputAction @Enter => m_Wrapper.m_Menu_Enter;
         public InputAction @Move => m_Wrapper.m_Menu_Move;
+        public InputAction @InternalProfiler => m_Wrapper.m_Menu_InternalProfiler;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -632,6 +706,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnMove;
+                @InternalProfiler.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnInternalProfiler;
+                @InternalProfiler.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnInternalProfiler;
+                @InternalProfiler.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnInternalProfiler;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -645,6 +722,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @InternalProfiler.started += instance.OnInternalProfiler;
+                @InternalProfiler.performed += instance.OnInternalProfiler;
+                @InternalProfiler.canceled += instance.OnInternalProfiler;
             }
         }
     }
@@ -671,11 +751,13 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnInternalProfiler(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
         void OnBack(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnInternalProfiler(InputAction.CallbackContext context);
     }
 }

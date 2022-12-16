@@ -12,6 +12,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private SettingsService _settingsServicePrefab;
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
         [SerializeField] private LocalizationService _localizationServicePrefab;
+        [SerializeField] private ControlService _controlServicePrefab;
 
         public override void InstallBindings()
         {
@@ -20,6 +21,21 @@ namespace _Project.Scripts.Main.Installers
             InstallGameManagerService();
             InstallSettingService();
             InstallLocalizationService();
+            InstallControlService();
+        }
+
+        private void InstallControlService()
+        {
+            Container
+                .Bind<ControlService>()
+                .FromComponentInNewPrefab(_controlServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) =>
+                {
+                    var settingService = instance as ControlService;
+                    settingService.Init();
+                })
+                .NonLazy();
         }
 
         private void InstallSettingService()
@@ -61,7 +77,12 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<GameManagerService>()
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => (instance as GameManagerService).Init())
+                .OnInstantiated((ctx, instance) =>
+                {
+                    var serviceInstance = instance as GameManagerService;
+                    SetService(serviceInstance);
+                    serviceInstance.Init();
+                })
                 .NonLazy();
         }
         

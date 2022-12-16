@@ -4,24 +4,22 @@ namespace _Project.Scripts.Main.Services
 {
     public static class Services
     {
-        private static ScreenService _screenService;
-        private static SceneLoaderService _sceneLoaderService;
-
-        public static ScreenService ScreenService => _screenService;
-        public static SceneLoaderService SceneLoaderService => _sceneLoaderService;
-
+        public static ScreenService ScreenService { get; private set; }
+        public static SceneLoaderService SceneLoaderService { get; private set; }
+        public static GameManagerService GameManagerService { get; private set; }
 
         public static void SetService<T>(T instance) where T : BaseService
         {
             switch (instance)
             {
-                case ScreenService screenService:
-                    Debug.Log("It is screenService");
-                    _screenService = screenService;
+                case ScreenService service:
+                    ScreenService = service;
                     break;
-                case SceneLoaderService sceneLoaderService:
-                    Debug.Log("It is SceneLoaderService");
-                    _sceneLoaderService = sceneLoaderService;
+                case SceneLoaderService service:
+                    SceneLoaderService = service;
+                    break;
+                case GameManagerService service:
+                    GameManagerService = service;
                     break;
             }
         }
