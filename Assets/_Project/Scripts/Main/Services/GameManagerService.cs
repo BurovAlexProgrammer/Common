@@ -8,6 +8,8 @@ namespace _Project.Scripts.Main.Services
         [SerializeField] private GameStateMachine _gameStateMachine;
 
         [Inject] private SceneLoaderService _sceneLoader;
+        [Inject] private LocalizationService _localizationService;
+        
         public GameStateMachine GameStateMachine => _gameStateMachine;
 
         public void Init()
